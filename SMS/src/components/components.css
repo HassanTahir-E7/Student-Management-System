@@ -1,0 +1,37 @@
+/* 🌐 Navbar */
+.navbar {
+  background: rgba(0, 0, 30);
+  padding: 0.5rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-left: 3rem;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.nav-links a:hover {
+    color: rgb(1, 1, 63);
+  background-color: beige;
+}
+
+
+/* Footer */
+footer {
+  width: 100%;
+  background: rgba(1, 1, 1, 0.7);
+  color: white;
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
