@@ -1,10 +1,10 @@
 import React from "react";
-import "./components.css";   // ✅ Import styles
+import "./components.css";  
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© 2025 Student Management System. All rights reserved.</p>
+      <p>© 2025 ClassMate. All rights reserved.</p>
     </footer>
   );
 };
