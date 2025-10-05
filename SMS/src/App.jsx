@@ -1,15 +1,21 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import Home from './pages/Home';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home.jsx";
+// import About from "./Pages/About";
+// import Students from "./Pages/Students";
+// import Courses from "./Pages/Courses";
 
-function App() {
+const App = () => {
   return (
-    <>  
-      <Home /> 
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/students" element={<Students />} /> */}
+        {/* <Route path="/courses" element={<Courses />} /> */}
+        {/* <Route path="/about" element={<About />} /> */}
+      </Routes>
     </>
   );
-}
+};
 
 export default App;

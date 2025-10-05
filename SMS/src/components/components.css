@@ -9,9 +9,8 @@ h3 {
 .navbar {
   background: whitesmoke;
   padding: 0.5rem;
-  opacity: 0.8;
-  position: sticky;
-  position: fixed;
+  opacity: 0.7;
+  position: static;
   width: 100%;
   height: 65px;
 }
@@ -38,9 +37,9 @@ h3 {
 
 .nav-links a:hover {
   color: white;
-  background-color: navy;
+  background-color: black;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 
@@ -61,14 +60,14 @@ h3 {
   margin: 10px;
   width: 300px;
   text-align: center;
-  background-color: rgb(66, 178, 247);
+  background-color: rgb(25, 83, 240);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 
 .stCard:hover {
   padding: 5px;
-  background-color: darkblue;
+  background-color: navy;
 }
 
 
@@ -106,4 +105,10 @@ h3 {
   color: white;
   background-color: rgb(66, 178, 247);
   padding: 12px;
+}
+
+.nav-links a.active {
+  color: #0988b3;
+  border-bottom: 2px solid #0988b3;
+  transition: all 0.3s ease;
 }
