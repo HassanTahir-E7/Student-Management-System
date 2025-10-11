@@ -10,11 +10,11 @@ import imgCL from "../Images/Calcuclator.webp"
 const Services = () => {
     return (
         <div className="our_Services">
-            <p className="Services"><img style={{height:'30px',width:'30px',marginRight:'20px'}} src={imgC} alt="" />  Our Courses</p>
-            <p className="Services"><img style={{height:'30px',width:'30px',marginRight:'20px'}} src={imgE} alt="" />Upcoming Exams</p>
-            <p className="Services"><img style={{height:'30px',width:'30pX',marginRight:'10px'}} src={imgA} alt="" />Attendance Management</p>
-            <p className="Services"><img style={{height:'30px',width:'30pX',marginRight:'10px'}} src={imgT} alt="" />Time Table Management</p>
-            <p className="Services"><img style={{height:'30px',width:'30pX',marginRight:'10px'}} src={imgCL} alt="" />GPA Calculator</p>
+            <p className="Services"><img src={imgC} alt="" />  Our Courses</p>
+            <p className="Services"><img src={imgE} alt="" />Upcoming Exams</p>
+            <p className="Services"><img src={imgA} alt="" />Attendance Management</p>
+            <p className="Services"><img src={imgT} alt="" />Time Table Management</p>
+            <p className="Services"><img src={imgCL} alt="" />GPA Calculator</p>
         </div>
 
     );

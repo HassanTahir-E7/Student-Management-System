@@ -1,12 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 import Services from "../components/Services";
 import logo from "../Images/Logo.png";
-import "../index.css"
+import "../Home.css"
 
 const Home = () => {
+    const navigate = useNavigate();
+    
     const students = [
         {
             name: "Husnain Rehman",
@@ -38,58 +41,74 @@ const Home = () => {
             course: "UI/UX Design",
             dept: "Computer Science",
         },
-        
     ];
 
-return (
-    <div className="container">
-        <Navbar />
+    const handleExploreClick = () => {
+        navigate('/about');
+    };
 
-        <main className="content">
-            <h1>Welcome to ClassMate</h1>
-            <p>
-                Welcome to the ClassMate. A Student Management System, simple and easy-to-use platform for handling student information.
-                For more details contact us at <u>class.mate@gmail.com</u>.
-            </p>
+    const handleCardClick = () => {
+        navigate('/students');
+    };
 
-            <div className="btn_Container">
-                <button className="btn">Explore more</button>
+    return (
+        <div className="container">
+            <div className="HBG">
+                <Navbar />
+
+                <main className="content">
+                    <h1>Welcome to ClassMate</h1>
+                    <p>
+                        Welcome to the ClassMate. A Student Management System, simple and easy-to-use platform for handling student information.
+                        For more details contact us at <u>class.mate@gmail.com</u>.
+                    </p>
+
+                    <div className="btn_Container">
+                        <button className="btn" onClick={handleExploreClick}>
+                            Explore more
+                        </button>
+                    </div>
+
+                    <h1
+                        style={{
+                            color: "black",
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            marginTop: "200px",
+                            marginBottom: "0px",
+                            textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
+                        }}
+                    >
+                        High Achievers
+                    </h1>
+
+                    <div className="cards">
+                        {students.map((student, index) => (
+                            <div 
+                                key={index}
+                                onClick={handleCardClick}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <Card
+                                    name={student.name}
+                                    rollNo={student.rollNo}
+                                    course={student.course}
+                                    dept={student.dept}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="ourServices">
+                        <h1 style={{ marginTop: "50px" }}>Our Services</h1>
+                        <Services />
+                    </div>
+                </main>
+
+                <Footer />
             </div>
-
-            <h1
-                style={{
-                    color: "black",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                    marginTop: "200px",
-                    marginBottom: "0px",
-                    textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
-                }}
-            >
-                Our Students
-            </h1>
-
-            <div className="cards">
-                {students.map((student, index) => (
-                    <Card
-                        key={index}
-                        name={student.name}
-                        rollNo={student.rollNo}
-                        course={student.course}
-                        dept={student.dept}
-                    />
-                ))}
-            </div>
-
-            <div className="ourServices">
-                <h1 style={{ marginTop: "50px" }}>Our Services</h1>
-                <Services />
-            </div>
-        </main>
-
-        <Footer />
-    </div>
-);
+        </div>
+    );
 };
 
 export default Home;

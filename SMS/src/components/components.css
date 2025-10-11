@@ -53,59 +53,94 @@ h3 {
 
 
 .stCard {
-  color: whitesmoke;
-  border: 5px solid black;
-  border-radius: 10px;
-  padding: 2px;
-  margin: 10px;
-  width: 300px;
-  text-align: center;
-  background-color: rgb(25, 83, 240);
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  /* background: white; */
+  /* background: rgb(65, 182, 240); */
+  background: rgb(200, 200, 200,0.5);
+  border-radius: 15px;
+  padding: 25px;
+  margin: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  max-width: 500px;
 }
-
 
 .stCard:hover {
-  padding: 5px;
-  background-color: navy;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
+.stCard p {
+  color: #333;
+  margin-bottom: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-.Services {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-  color: black;
-  color: whitesmoke;
-  border: 5px solid black;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
-  font-size: 1.5rem;
-  height: 50px;
-  width: 300px;
-  text-align: center;
-  align-items: center;
-  color: black;
-  background-color: white;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+.stCard p:first-child {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
 }
 
 
 .our_Services {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 1500px;
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
-  margin-top: 65px;
+  align-items:center;
   justify-content: center;
+  gap: 30px;
+  row-gap: 5px;
 }
 
-
-.Services:hover{
-  color: white;
-  background-color: rgb(66, 178, 247);
-  padding: 12px;
+.Services {
+  display: flex;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content: center;
+  width: 300px;
+  color: #333;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  background: rgb(200, 200, 200,0.5);
+  border-radius: 10px;
+  border-left: 4px solid black;
+  /* border-left: 4px solid #0066ff; */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.Services:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.Services:last-child {
+  margin-bottom: 0;
+}
+
+.Services img {
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
+  object-fit: contain;
+  filter: brightness(0.8);
+}
+
 
 .nav-links a.active {
   color: #0988b3;

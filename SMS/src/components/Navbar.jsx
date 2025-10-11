@@ -17,11 +17,12 @@ const Navbar = () => {
           <NavLink to="/students"className={({ isActive }) => (isActive ? "active" : "")} > Students</NavLink>
         </li>
         <li>
-          <NavLink to="/courses"className={({ isActive }) => (isActive ? "active" : "")} > Courses </NavLink>
-        </li>
-        <li>
           <NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}> About</NavLink>
         </li>
+        <li>
+          <NavLink to="/contact"className={({ isActive }) => (isActive ? "active" : "")} > Contact </NavLink>
+        </li>
+        
       </ul>
     </nav>
   );
