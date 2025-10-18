@@ -1,0 +1,463 @@
+/* ===== STUDENTS COMPONENT STYLES ===== */
+/* Professional Student Management Interface - Blue Theme */
+
+.students-container {
+    padding: 30px;
+    background: linear-gradient(135deg, #f8faff 0%, #eef2ff 100%);
+    min-height: 100vh;
+    border-left: 3px solid #1e40af;
+}
+
+/* ----- Header Section ----- */
+.students-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 3px solid #1e40af;
+    padding-bottom: 25px;
+    position: relative;
+}
+
+.students-header::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: #3b82f6;
+}
+
+.students-title {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1e3a8a;
+    text-decoration: underline;
+    margin-bottom: 25px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(30, 58, 138, 0.1);
+}
+
+.header-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* ----- Search Input ----- */
+.search-input {
+    padding: 12px 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    width: 320px;
+    height: 48px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    color: #1e293b;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+}
+
+.search-input::placeholder {
+    color: #64748b;
+    opacity: 0.7;
+}
+
+/* ----- Action Buttons ----- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 6px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    height: 48px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn.add-btn {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.2);
+    min-width: 160px;
+}
+
+.btn.add-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn.add-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.2);
+}
+
+/* ----- Table Styles ----- */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.1);
+    margin-top: 30px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+}
+
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-width: 1000px;
+}
+
+.student-table thead {
+    background: linear-gradient(135deg, #1e40af, #3730a3);
+}
+
+.student-table th {
+    padding: 18px 20px;
+    text-align: left;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border: none;
+    position: relative;
+}
+
+.student-table th::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: #60a5fa;
+}
+
+.student-table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+    color: #334155;
+}
+
+.student-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.student-table tbody tr:hover {
+    background-color: #f1f5f9;
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
+}
+
+/* ----- Student Picture Cells ----- */
+.pic-cell {
+    width: 70px;
+}
+
+.student-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.student-pic:hover {
+    border-color: #3b82f6;
+    transform: scale(1.05);
+}
+
+.student-pic-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 2px solid #e2e8f0;
+}
+
+/* ----- CGPA Column ----- */
+.cgpa-col {
+    font-weight: bold;
+    color: #1e40af;
+    width: 100px;
+    font-size: 1.1rem;
+}
+
+/* ----- Action Buttons in Table ----- */
+.action-cell {
+    white-space: nowrap;
+    width: 280px;
+}
+
+.btn-action {
+    padding: 8px 16px;
+    margin: 0 4px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.btn-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.view-btn { 
+    background: #3b82f6; 
+    color: #ffffff; 
+}
+.view-btn:hover { 
+    background: #2563eb; 
+}
+
+.edit-btn { 
+    background: #60a5fa; 
+    color: #1e293b; 
+}
+.edit-btn:hover { 
+    background: #3b82f6; 
+    color: #ffffff;
+}
+
+.cgpa-btn { 
+    background: #6366f1; 
+    color: #ffffff; 
+}
+.cgpa-btn:hover { 
+    background: #4f46e5; 
+}
+
+.delete-btn { 
+    background: #ef4444; 
+    color: #ffffff; 
+}
+.delete-btn:hover { 
+    background: #dc2626; 
+}
+
+/* ----- Top Student Highlight ----- */
+.top-student-row {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-left: 4px solid #0462f9;
+    font-weight: bold;
+    position: relative;
+}
+
+.top-student-row::before {
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+.top-student-banner {
+    text-align: center;
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    color: #ffffff;
+    padding: 15px 30px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    border: 2px solid #60a5fa;
+}
+
+/* ----- Empty State ----- */
+.no-students {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #64748b;
+    padding: 60px 20px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: #f8fafc;
+}
+
+.no-students::before {
+    content: "📊";
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* ----- Loading States ----- */
+.btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn.loading::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* ===== MODAL STYLES ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ffffff, #f8faff);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(30, 58, 138, 0.3);
+    border: 2px solid #3b82f6;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-content h3 {
+    color: #1e40af;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #334155;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background: #ffffff;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.student-details {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.detail-row {
+    padding: 10px 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row strong {
+    color: #1e40af;
+    min-width: 120px;
+    display: inline-block;
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Responsive modal actions */
+@media (max-width: 480px) {
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-actions .btn-action {
+        width: 100%;
+    }
+}

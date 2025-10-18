@@ -1,0 +1,76 @@
+/* Navbar.css (Restored Original Theme + Logout Button) */
+
+.navbar {
+    background: whitesmoke;
+    padding: 0.5rem 30px; /* Added horizontal padding for spacing the logout button */
+    opacity: 1; /* Slightly increased opacity for better visibility */
+    position:static; /* Changed to sticky/fixed to remain visible */
+    top: 0;
+    width: 100%;
+    height: 75px;
+
+    /* 🎯 MODIFICATION for Logout Button positioning */
+    display: flex;
+    justify-content: space-between; /* Pushes the links to the left and the button to the right */
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: start;
+    gap: 3rem;
+    margin-left: 0; /* Adjusted to 0 since padding is now on the navbar container */
+    padding: 0;
+    /* Ensure links stay together */
+    align-items: center;
+}
+
+
+.nav-links a {
+    text-decoration: none;
+    color: rgb(0, 0, 81); /* Your original color */
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    transition: all 0.2s ease-in-out; /* Smooth transition for hover effect */
+}
+
+
+.nav-links a:hover {
+     color: white;
+    background-color: #0988b3;
+    padding: 5px;
+    border-radius: 7px;
+}
+
+/* Style for active link */
+.nav-links a.active {
+  /* color: #0988b3; */
+  color:  rgb(150, 90, 0);
+  border-bottom: 2px solid rgb(155, 90, 0);
+  transition: all 0.3s ease; 
+}
+
+
+/* 🎯 Logout Button Styling */
+.logout-btn {
+    padding: 10px 15px;
+    background-color: #dc3545; /* Red/Danger color for high visibility */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}

@@ -1,0 +1,49 @@
+/* Services.css */
+
+.our_Services {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    margin: 40px auto;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.Services {
+    display: flex;
+    align-items: center;
+    width: 350px;
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    border-left: 5px solid #0988b3;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.Services:hover {
+    background: rgba(9, 136, 179, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(9, 136, 179, 0.15);
+    border-left-color: #0678a3;
+}
+
+.Services img {
+    height: 35px;
+    width: 35px;
+    margin-right: 20px;
+    object-fit: contain;
+    filter: brightness(0.9);
+}

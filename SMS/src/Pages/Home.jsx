@@ -1,106 +1,62 @@
+// Home.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 import Services from "../components/Services";
 import logo from "../Images/Logo.png";
-import "../Home.css"
+import "../Styling/Home.css"
 
 const Home = () => {
     const navigate = useNavigate();
     
-    const students = [
-        {
-            name: "Husnain Rehman",
-            rollNo: "L1S23BSCS0023",
-            course: "Artificial Intelligence",
-            dept: "Computer Science",
-        },
-        {
-            name: "Muhammad Hamid",
-            rollNo: "L1S23BSCS0015",
-            course: "Discrete Structures",
-            dept: "Computer Science",
-        },
-        {
-            name: "Ibrahim Nadeem",
-            rollNo: "L1S23BSCS0007",
-            course: "Cloud Computing",
-            dept: "Computer Science",
-        },
-        {
-            name: "Murtaza Babar",
-            rollNo: "L1S23BSCS0060",
-            course: "Data Science",
-            dept: "Computer Science",
-        },
-        {
-            name: "Muahmmad Alishan",
-            rollNo: "L1S23BSCS0050",
-            course: "UI/UX Design",
-            dept: "Computer Science",
-        },
-    ];
-
-    const handleExploreClick = () => {
-        navigate('/about');
+    const handleRegisterClick = () => {
+        navigate('/register');
     };
 
-    const handleCardClick = () => {
-        navigate('/students');
+    const handleExploreServicesClick = () => {
+        // Smoothly scroll to the "Our Services" section
+        document.getElementById('services-section').scrollIntoView({ behavior: 'smooth' });
     };
+
+    // Note: handleViewStudentsClick is now redundant since the 'cards' section is removed/commented out.
 
     return (
         <div className="container">
             <div className="HBG">
-                <Navbar />
+                {/* <Navbar /> */}
 
                 <main className="content">
-                    <h1>Welcome to ClassMate</h1>
+                    <h1>Welcome to Classmate</h1>
                     <p>
                         Welcome to the ClassMate. A Student Management System, simple and easy-to-use platform for handling student information.
                         For more details contact us at <u>class.mate@gmail.com</u>.
                     </p>
 
                     <div className="btn_Container">
-                        <button className="btn" onClick={handleExploreClick}>
-                            Explore more
+                        {/* 1. Register Button */}
+                        <button style={{fontSize:"18px"}} className="btn" onClick={handleRegisterClick}>
+                            Register NOW!
+                        </button>
+                        
+                        {/* 2. New Explore Services Button */}
+                        <button 
+                            style={{ 
+                                fontSize:"20px", 
+                            }} 
+                            className="btn" 
+                            onClick={handleExploreServicesClick}
+                        >
+                            Our Services
                         </button>
                     </div>
 
-                    <h1
-                        style={{
-                            color: "black",
-                            textAlign: "center",
-                            fontWeight: "bold",
-                            marginTop: "200px",
-                            marginBottom: "0px",
-                            textShadow: "2px 2px 4px rgba(0,0,0,0.1)",
-                        }}
-                    >
-                        High Achievers
-                    </h1>
+                 
 
-                    <div className="cards">
-                        {students.map((student, index) => (
-                            <div 
-                                key={index}
-                                onClick={handleCardClick}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <Card
-                                    name={student.name}
-                                    rollNo={student.rollNo}
-                                    course={student.course}
-                                    dept={student.dept}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    {/* The entire 'cards' section remains commented out/removed from rendering */}
 
-                    <div className="ourServices">
-                        <h1 style={{ marginTop: "50px" }}>Our Services</h1>
+                    <div className="ourServices" id="services-section">
+                        <h1 style={{ marginTop: "400px"}}>Our Services</h1>
                         <Services />
                     </div>
                 </main>

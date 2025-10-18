@@ -1,0 +1,134 @@
+/* Styling/CgpaCalculator.css */
+
+.cgpa-container {
+    padding: 40px;
+    max-width: 700px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid rgb(0, 0, 81);
+}
+
+.cgpa-title {
+    text-align: center;
+    color: rgb(0, 0, 81);
+    font-size: 2.2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-bottom: 10px;
+}
+
+.cgpa-subtitle {
+    text-align: center;
+    color: #6c757d;
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.course-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 50px;
+    gap: 10px;
+    font-weight: bold;
+    color: #555;
+    padding: 0 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.course-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 50px;
+    gap: 10px;
+}
+
+.course-row select,
+.course-row input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.remove-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #c82333;
+}
+
+.add-course-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #17a2b8; /* Cyan for informational action */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 30px;
+}
+
+.add-course-btn:hover {
+    background-color: #138496;
+}
+
+.cgpa-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.calculate-btn {
+    padding: 12px 25px;
+    background-color: rgb(0, 0, 81);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.calculate-btn:hover {
+    background-color: #00005d;
+}
+
+.cgpa-result {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.result-value {
+    font-size: 1.4rem;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.high-cgpa {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.low-cgpa {
+    background-color: #f8d7da;
+    color: #721c24;
+}

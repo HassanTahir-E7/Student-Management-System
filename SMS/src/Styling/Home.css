@@ -1,3 +1,5 @@
+/* Home.css (Revised for Minimal Admin Panel Home) */
+
 body,
 html {
   margin: 0;
@@ -9,7 +11,6 @@ html {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  
 }
 
 .content {
@@ -22,15 +23,15 @@ html {
 }
 
 /* Background image */
-.HBG{
-  background-image: url('Images/BG_Study.jpg');
+.HBG {
+  background-image: url('../Images/BG_Study.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 75vh;
+  height: 100vh;
 }
 
-.HBG::before{
+.HBG::before {
   content: "";
   position: fixed;
   top: 0;
@@ -48,6 +49,9 @@ h1 {
   font-weight: bold;
   text-decoration: underline;
   margin-top: 150px;
+  /* 🎯 MODIFICATION: Ensure this heading is visible on the BG image */
+  color: black; 
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); */
 }
 
 p {
@@ -65,48 +69,73 @@ u {
 }
 
 
+/* 🎯 MODIFICATION: Adjustments for the empty 'cards' section */
 .cards {
-
+  /* Kept original layout properties */
   margin-top: 50px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column; /* Changed to column to center text/button */
   text-align: center;
   justify-content: center;
+  align-items: center; /* Center items horizontally */
   margin-bottom: 100px;
+
+  /* Added padding and border for visual separation from high achievers title */
+  padding-top: 20px;
 }
+
+/* Style for the placeholder text inside the cards section */
+.cards p {
+    color: #666; /* Changed color for better visibility outside the HBG area */
+    margin-bottom: 20px;
+}
+
+/* Style for the "Go to Student List" button inside the cards section (reusing .btn) */
+.cards .btn {
+    /* Optional: Give it a slight color difference if desired, otherwise inherits original */
+    background-color: #28a745; /* Success color for list view */
+    color: white;
+}
+.cards .btn:hover {
+    background-color: #1e7e34;
+    color: white;
+}
+
 
 .cmLogo {
   margin-left: 600px;
   margin-top: 100px;
   height: 200px;
   width: 300px;
+  /* This component was removed from Home.jsx, but keeping the style just in case */
 }
 
 /* Basic Button */
-.btn_Container {
-  display: grid;
-  place-items: center;
+.btn_Container {display: flex;
+  justify-content: center; /* Centers the group of buttons */
+  gap: 30px; /* Adds space between the two buttons */
   margin-top: 20px;
 }
 
 .btn {
-  padding: 12px 24px;
+  /* This style is used for the new 'Register Student' button */
+  padding: 12px;
   background-color: white;
   color: black;
   text-decoration: none;
   border: none;
   border-radius: 6px;
-  font-size: 20px;
+  font-size: 50px;
   font-weight: bold;
   cursor: pointer;
   text-align: center;
   transition: all 0.3s ease;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  width: 150px;
+  width: 200px; /* 🎯 MODIFICATION: Increased width slightly for 'Register Student' text */
 }
 
 .btn:hover {
-  background-color: #0988b3;
+  background-color: rgb(2, 4, 98);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -120,4 +149,9 @@ u {
 .btn:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+.ourServices {
+    /* Added margin for separation */
+    padding-top: 50px;
 }

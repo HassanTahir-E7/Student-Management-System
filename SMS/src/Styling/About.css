@@ -1,6 +1,6 @@
 
 /* Background image */
-.ABG{
+/* .ABG{
   background-image: url('Images/BG_Study.jpg');
   background-size: cover;
   background-position: center;
@@ -17,7 +17,7 @@
   height: 100%;
   background: rgba(255, 255, 255, 0.2);
   z-index: -1;
-}
+} */
 
 .about-section {
     max-width: 1100px;

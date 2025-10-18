@@ -1,0 +1,90 @@
+/* Styling/RegisterStudent.css */
+
+.reg-container {
+    padding: 40px;
+    max-width: 800px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid rgb(0, 0, 81); /* Themed border */
+}
+
+.reg-title {
+    text-align: center;
+    color: rgb(0, 0, 81);
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.reg-form .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #495057;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: rgb(0, 0, 81);
+    box-shadow: 0 0 0 3px rgba(0, 0, 81, 0.1);
+    outline: none;
+}
+
+.file-upload-group {
+    grid-column: 1 / -1; /* Span across full width */
+    border: 1px dashed #ced4da;
+    padding: 20px;
+    border-radius: 8px;
+    align-items: flex-start;
+}
+
+.pic-preview {
+    max-width: 100px;
+    height: 100px;
+    margin-top: 15px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ccc;
+}
+
+.reg-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745; /* Green for success */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s;
+    margin-top: 20px;
+}
+
+.reg-submit-btn:hover {
+    background-color: #1e8e3e;
+    transform: translateY(-2px);
+}
