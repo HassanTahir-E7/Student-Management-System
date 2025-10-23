@@ -1,9 +1,10 @@
-// Signup.jsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../Styling/SignUp.css';
+import logo from '../Images/Logo.png';
 
 const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -11,31 +12,56 @@ const Signup = () => {
   const handleSignup = (e) => {
     e.preventDefault();
 
-    // Simple validation
-    if (!email || !password) {
-      alert('Please enter both email and password.');
+    const existingAdmins = JSON.parse(localStorage.getItem('admins')) || [];
+
+    // ✅ Check admin limit
+    if (existingAdmins.length >= 2) {
+      alert('Only 2 admins can be registered at a time. Please login instead.');
       return;
     }
 
-    // Check if an admin already exists (optional but good practice)
-    const existingAdmin = localStorage.getItem('adminCredentials');
-    if (existingAdmin) {
-      alert('An admin account already exists. Please log in.');
+    if (!name || !email || !password) {
+      alert('Please fill in all fields.');
       return;
     }
 
-    // Save credentials to localStorage
-    const adminData = { email, password };
-    localStorage.setItem('adminCredentials', JSON.stringify(adminData));
+    const alreadyExists = existingAdmins.some((admin) => admin.email === email);
+    if (alreadyExists) {
+      alert('An admin with this email already exists. Please login instead.');
+      return;
+    }
 
-    alert('Signup successful! Please log in.');
-    navigate('/login'); // Redirect to login page
+    const newAdmin = { name, email, password };
+    existingAdmins.push(newAdmin);
+    localStorage.setItem('admins', JSON.stringify(existingAdmins));
+
+    alert('Admin registered successfully!');
+    setName('');
+    setEmail('');
+    setPassword('');
+    navigate('/login');
   };
 
   return (
     <div className="signup-container">
       <form onSubmit={handleSignup} className="signup-form">
-        <h2>Admin Signup</h2>
+        <div className="form-header">
+          <img src={logo} alt="Logo" className="signup-logo" />
+          <h2 className="signup-heading">Admin Signup</h2>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -47,6 +73,7 @@ const Signup = () => {
             required
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
@@ -58,9 +85,12 @@ const Signup = () => {
             required
           />
         </div>
+
         <button type="submit" className="signup-btn">Register</button>
-        <p className="login-link">
-          Already have an account? <Link to="/login">Login here</Link>
+
+        {/* 🔹 New Section: Already registered message */}
+        <p className="already-registered">
+          Already registered? <Link to="/login" className="login-link">Login here</Link>
         </p>
       </form>
     </div>

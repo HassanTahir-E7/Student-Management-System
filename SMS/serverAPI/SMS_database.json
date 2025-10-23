@@ -1,0 +1,52 @@
+{
+  "Students": [
+    {
+      "id": "1",
+      "name": "Husnain Rehman",
+      "rollNo": "L1S23BSCS0023",
+      "dept": "Computer Science",
+      "cgpa": "3.85",
+      "picUrl": null
+    },
+    {
+      "id": "2",
+      "name": "Muhammad Hamid",
+      "rollNo": "L1S23BSCS0015",
+      "dept": "Computer Science",
+      "cgpa": "3.70",
+      "picUrl": null
+    },
+    {
+      "id": "3",
+      "name": "Ibrahim Nadeem",
+      "rollNo": "L1S23BSCS0008",
+      "dept": "Computer Science",
+      "cgpa": "4.0",
+      "picUrl": null
+    },
+    {
+      "id": "4",
+      "name": "Murtaza Babar",
+      "rollNo": "L1S23BSCS0059",
+      "dept": "Computer Science",
+      "cgpa": "3.83",
+      "picUrl": null
+    },
+    {
+      "id": "5",
+      "name": "Muhammad Alishan",
+      "rollNo": "L1S23BSCS0050",
+      "dept": "Computer Science",
+      "cgpa": "3.75",
+      "picUrl": null
+    },
+    {
+      "id": "6",
+      "name": "Fahad Kodu",
+      "rollNo": "L1F25BSBG0001",
+      "dept": "Electrical Engineering",
+      "picUrl": null,
+      "cgpa": "N/A"
+    }
+  ]
+}

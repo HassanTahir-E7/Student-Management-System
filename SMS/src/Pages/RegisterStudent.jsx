@@ -2,16 +2,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Styling/RegisterStudent.css'; 
+import api from '../studentsData'; 
 
 const RegisterStudent = () => {
   const navigate = useNavigate();
   const [student, setStudent] = useState({
     name: '',
     rollNo: '',
-    department: '',
-    picUrl: null, // Base64 string for image
-    cgpa: 'N/A', // Initial CGPA
-    id: Date.now(), // Unique ID
+    dept: '',
+    picUrl: null, 
+    cgpa: 'N/A', 
   });
 
   const handleChange = (e) => {
@@ -38,32 +38,26 @@ const RegisterStudent = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!student.name || !student.rollNo || !student.department) {
+    if (!student.name || !student.rollNo || !student.dept) { 
       alert('Please fill out all required fields.');
       return;
     }
 
-    const existingStudentsJSON = localStorage.getItem('students');
-    const existingStudents = existingStudentsJSON ? JSON.parse(existingStudentsJSON) : [];
+    try {
+        await api.post('/Students', student);
 
-    // Check for duplicate Roll No
-    const isDuplicate = existingStudents.some(s => s.rollNo === student.rollNo);
-    if (isDuplicate) {
-        alert(`Registration Failed: Student with Roll No ${student.rollNo} already exists.`);
-        return;
+        alert(`Student ${student.name} registered successfully on the server!`);
+        
+        // Reset form and navigate to the student list
+        setStudent({ name: '', rollNo: '', dept: '', picUrl: null, cgpa: 'N/A' }); 
+        navigate('/students'); 
+    } catch (error) {
+        console.error("Error registering student:", error);
+        alert("Registration Failed. Check console for details.");
     }
-
-    const updatedStudents = [...existingStudents, student];
-    localStorage.setItem('students', JSON.stringify(updatedStudents));
-
-    alert(`Student ${student.name} registered successfully!`);
-    
-    // Reset form and navigate to the student list
-    setStudent({ name: '', rollNo: '', department: '', picUrl: null, cgpa: 'N/A', id: Date.now() });
-    navigate('/students'); 
   };
 
   return (
@@ -99,18 +93,18 @@ const RegisterStudent = () => {
             </div>
             
             <div className="form-group">
-            <label htmlFor="department">Department:</label>
+            <label htmlFor="dept">Department:</label> 
             <select
-                id="department"
-                name="department"
-                value={student.department}
+                id="dept"
+                name="dept"
+                value={student.dept}
                 onChange={handleChange}
                 required
             >
                 <option value="">Select Department</option>
-                <option value="CS">Computer Science</option>
-                <option value="EE">Electrical Engineering</option>
-                <option value="BBA">Business Administration</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Business Administration">Business Administration</option>
             </select>
             </div>
 

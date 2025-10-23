@@ -46,23 +46,17 @@ const App = () => {
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* Main/Home Route (Protected) */}
         <Route path="/" element={<PrivateRoute element={Home} />} /> 
         <Route path="/home" element={<PrivateRoute element={Home} />} /> 
         
-        {/* ❌ REMOVED: Problematic path="/student" */}
 
-        {/* 🎯 CORRECTED: Student Management & Other Routes (Protected) */}
         <Route path="/register" element={<PrivateRoute element={RegisterStudent} />} />
         <Route path="/students" element={<PrivateRoute element={Students} />} /> 
         <Route path="/subjects" element={<PrivateRoute element={Courses} />} />
         <Route path="/cgpa" element={<PrivateRoute element={CgpaCalculator} />} />
         
-        {/* Your Existing Routes (Protected) */}
         <Route path="/about" element={<PrivateRoute element={About} />} />
-        {/* <Route path="/contact" element={<PrivateRoute element={Contact} />} /> */}
 
-        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

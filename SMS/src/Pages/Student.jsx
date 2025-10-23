@@ -1,24 +1,13 @@
 // Pages/Student.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styling/Students.css"; 
+import api from "../studentsData"; 
 
 const Students = () => {
     const navigate = useNavigate();
 
-    // Utility function to load data from localStorage or provide initial structure
-    const loadStudents = () => {
-        const savedStudents = localStorage.getItem('students');
-        const initialStudents = [
-            { id: 1, name: "Husnain Rehman", rollNo: "L1S23BSCS0023", dept: "Computer Science", cgpa: "3.85", picUrl: null },
-            { id: 2, name: "Muhammad Hamid", rollNo: "L1S23BSCS0015", dept: "Computer Science", cgpa: "3.92", picUrl: null },
-            { id: 3, name: "Ibrahim Nadeem", rollNo: "L1S23BSCS0007", dept: "Computer Science", cgpa: "3.70", picUrl: null },
-        ];
-        
-        return savedStudents ? JSON.parse(savedStudents) : initialStudents;
-    };
-
-    const [students, setStudents] = useState(loadStudents);
+    const [students, setStudents] = useState([]); 
     const [searchTerm, setSearchTerm] = useState("");
     const [topStudentId, setTopStudentId] = useState(null);
     
@@ -31,13 +20,30 @@ const Students = () => {
     const [editFormData, setEditFormData] = useState({ name: "", rollNo: "", dept: "" });
     const [cgpaValue, setCgpaValue] = useState("");
 
-    // Save students to localStorage whenever the list changes
-    useEffect(() => {
-        localStorage.setItem('students', JSON.stringify(students));
-        highlightTopStudent(students);
-    }, [students]);
 
-    // 🎯 TASK: Highlight Top Student based on highest CGPA
+    const fetchStudents = useCallback(async () => {
+        try {
+            const response = await api.get("/Students");
+            setStudents(response.data);
+            highlightTopStudent(response.data); 
+        } catch (error) {
+            console.error("Error fetching students from API, falling back to local storage:", error);
+            // Fallback for demo: load from local storage if API fails (using initial mock data)
+            const initialStudents = [
+                { id: 1, name: "Husnain Rehman", rollNo: "L1S23BSCS0023", dept: "Computer Science", cgpa: "3.85", picUrl: null },
+                { id: 2, name: "Muhammad Hamid", rollNo: "L1S23BSCS0015", dept: "Computer Science", cgpa: "3.92", picUrl: null },
+                { id: 3, name: "Ibrahim Nadeem", rollNo: "L1S23BSCS0007", dept: "Computer Science", cgpa: "3.70", picUrl: null },
+            ];
+            setStudents(initialStudents);
+            highlightTopStudent(initialStudents);
+        }
+    }, []); 
+
+    useEffect(() => {
+        fetchStudents();
+    }, [fetchStudents]);
+
+
     const highlightTopStudent = (studentList) => {
         const scoredStudents = studentList.filter(s => s.cgpa !== 'N/A' && !isNaN(s.cgpa) && parseFloat(s.cgpa) <= 4.0);
         
@@ -53,20 +59,25 @@ const Students = () => {
         setTopStudentId(top.id);
     };
 
-    // 🎯 TASK: Delete Student (D in CRUD)
     const handleDelete = (student) => {
         setSelectedStudent(student);
         setShowDeleteModal(true);
     };
 
-    const confirmDelete = () => {
-        const updatedStudents = students.filter(s => s.id !== selectedStudent.id);
-        setStudents(updatedStudents);
-        setShowDeleteModal(false);
-        setSelectedStudent(null);
+    const confirmDelete = async () => {
+        try {
+            await api.delete(`/Students/${selectedStudent.id}`);
+            
+            setStudents(prevStudents => prevStudents.filter(s => s.id !== selectedStudent.id));
+            setShowDeleteModal(false);
+            setSelectedStudent(null);
+            alert(`Student ${selectedStudent.name} deleted successfully from server.`);
+        } catch (error) {
+            console.error("Error deleting student:", error);
+            alert("Error deleting student. Check console for details.");
+        }
     };
 
-    // 🎯 TASK: Edit Student (U in CRUD)
     const handleEdit = (student) => {
         setSelectedStudent(student);
         setEditFormData({
@@ -77,45 +88,66 @@ const Students = () => {
         setShowEditModal(true);
     };
 
-    const saveEdit = () => {
+    const saveEdit = async () => {
         if (editFormData.name.trim() && editFormData.rollNo.trim() && editFormData.dept.trim()) {
-            const updatedStudents = students.map(s => 
-                s.id === selectedStudent.id ? { 
-                    ...s, 
-                    name: editFormData.name,
-                    rollNo: editFormData.rollNo,
-                    dept: editFormData.dept
-                } : s
-            );
-            setStudents(updatedStudents);
-            setShowEditModal(false);
-            setSelectedStudent(null);
+            const updatedData = {
+                ...selectedStudent, 
+                name: editFormData.name,
+                rollNo: editFormData.rollNo,
+                dept: editFormData.dept 
+            };
+
+            try {
+                await api.put(`/Students/${selectedStudent.id}`, updatedData);
+
+                // Update local state after successful edit
+                setStudents(prevStudents => prevStudents.map(s =>
+                    s.id === selectedStudent.id ? updatedData : s
+                ));
+                setShowEditModal(false);
+                setSelectedStudent(null);
+                alert(`Student ${updatedData.name} updated successfully.`);
+            } catch (error) {
+                console.error("Error saving edit:", error);
+                alert("Error updating student. Check console for details.");
+            }
         }
     };
 
-    // 🎯 TASK: View Student Details
     const handleView = (student) => {
         setSelectedStudent(student);
         setShowViewModal(true);
     };
 
-    // 🎯 TASK: Calculate/Set CGPA
     const handleUpdateCGPA = (student) => {
         setSelectedStudent(student);
-        setCgpaValue(student.cgpa);
+        setCgpaValue(student.cgpa === 'N/A' ? "" : student.cgpa); 
         setShowCGPAModal(true);
     };
 
-    const saveCGPA = () => {
+    const saveCGPA = async () => {
         const newCGPA = parseFloat(cgpaValue);
         if (!isNaN(newCGPA) && newCGPA >= 0 && newCGPA <= 4.0) {
-            const updatedStudents = students.map(s => 
-                s.id === selectedStudent.id ? { ...s, cgpa: newCGPA.toFixed(2) } : s
-            );
-            setStudents(updatedStudents);
-            setShowCGPAModal(false);
-            setSelectedStudent(null);
-            setCgpaValue("");
+            const updatedData = {
+                ...selectedStudent,
+                cgpa: newCGPA.toFixed(2)
+            };
+
+            try {
+                await api.put(`/Students/${selectedStudent.id}`, updatedData);
+
+                setStudents(prevStudents => prevStudents.map(s =>
+                    s.id === selectedStudent.id ? updatedData : s
+                ));
+
+                setShowCGPAModal(false);
+                setSelectedStudent(null);
+                setCgpaValue("");
+                alert(`CGPA for ${selectedStudent.name} updated to ${newCGPA.toFixed(2)}.`);
+            } catch (error) {
+                console.error("Error saving CGPA:", error);
+                alert("Error updating CGPA. Check console for details.");
+            }
         }
     };
 
@@ -148,10 +180,9 @@ const Students = () => {
                 </div>
             </div>
 
-            {/* 🎯 TASK: Highlight Banner */}
             {topStudentId && (
                 <div className="top-student-banner">
-                    🌟 Top Academic Performer Highlighted (Based on highest CGPA)!
+                    Top Academic Performer Highlighted (Based on highest CGPA)!
                 </div>
             )}
 
@@ -202,7 +233,6 @@ const Students = () => {
                 </div>
             )}
 
-            {/* Delete Confirmation Modal */}
             {showDeleteModal && selectedStudent && (
                 <div className="modal-overlay">
                     <div className="modal-content">
@@ -216,7 +246,6 @@ const Students = () => {
                 </div>
             )}
 
-            {/* Edit Student Modal */}
             {showEditModal && selectedStudent && (
                 <div className="modal-overlay">
                     <div className="modal-content">
@@ -256,7 +285,6 @@ const Students = () => {
                 </div>
             )}
 
-            {/* View Student Modal */}
             {showViewModal && selectedStudent && (
                 <div className="modal-overlay">
                     <div className="modal-content">
@@ -285,7 +313,6 @@ const Students = () => {
                 </div>
             )}
 
-            {/* Update CGPA Modal */}
             {showCGPAModal && selectedStudent && (
                 <div className="modal-overlay">
                     <div className="modal-content">
