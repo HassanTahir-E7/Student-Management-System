@@ -1,463 +1,339 @@
-/* ===== STUDENTS COMPONENT STYLES ===== */
-/* Professional Student Management Interface - Blue Theme */
+/* ==============================
+   🎓 STUDENTS PAGE - LIGHTER THEME
+   ============================== */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
+* {
+  font-family: 'Ubuntu', sans-serif;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #3b82f6;
+  --primary-hover: #1e40af;
+  --secondary: #10b981;
+  --text-light: #f8fafc;
+  --text-dark: #1e293b;
+  --bg-dark: #e0e7ff;
+  --bg-mid: #c7d2fe;
+  --bg-light: #a5b4fc;
+  --shadow: rgba(37, 99, 235, 0.3);
+}
+
+/* 🌌 PAGE BACKGROUND */
 .students-container {
-    padding: 30px;
-    background: linear-gradient(135deg, #f8faff 0%, #eef2ff 100%);
-    min-height: 100vh;
-    border-left: 3px solid #1e40af;
+    margin-top: 40px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4ff 0%, #dbeafe 40%, #c7d2fe 100%);
+  color: var(--text-dark);
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* ----- Header Section ----- */
+.students-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridMove 25s linear infinite;
+  z-index: 1;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+/* 🔹 HEADER */
 .students-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 40px;
-    border-bottom: 3px solid #1e40af;
-    padding-bottom: 25px;
-    position: relative;
-}
-
-.students-header::after {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: #3b82f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 3;
 }
 
 .students-title {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #1e3a8a;
-    text-decoration: underline;
-    margin-bottom: 25px;
-    text-align: center;
-    text-shadow: 2px 2px 4px rgba(30, 58, 138, 0.1);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
 }
 
 .header-actions {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }
 
-/* ----- Search Input ----- */
+/* 🔍 SEARCH BOX */
 .search-input {
-    padding: 12px 20px;
-    border: 2px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    width: 320px;
-    height: 48px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    background: #ffffff;
-    color: #1e293b;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 2px solid var(--primary);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text-dark);
+  outline: none;
+  width: 280px;
+  font-size: 1rem;
+  transition: 0.3s;
 }
 
 .search-input:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    transform: translateY(-1px);
+  box-shadow: 0 0 10px var(--shadow);
 }
 
-.search-input::placeholder {
-    color: #64748b;
-    opacity: 0.7;
+/* 🔘 BUTTONS */
+.btn,
+.btn-action {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px var(--shadow);
 }
 
-/* ----- Action Buttons ----- */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 28px;
-    border: none;
-    border-radius: 6px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    text-align: center;
-    height: 48px;
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
+.btn:hover,
+.btn-action:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--shadow);
 }
 
-.btn.add-btn {
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
-    color: #ffffff;
-    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.2);
-    min-width: 160px;
+/* ✨ ADD STUDENT BUTTON */
+.add-btn {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.4);
 }
 
-.btn.add-btn:hover {
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+.add-btn:hover {
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  transform: translateY(-3px);
 }
 
-.btn.add-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.2);
+/* 🌟 TOP STUDENT BANNER */
+.top-student-banner {
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  color: white;
+  text-align: center;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-weight: 600;
+  margin: 25px 0;
+  box-shadow: 0 5px 20px rgba(37, 99, 235, 0.3);
+  position: relative;
+  z-index: 3;
 }
 
-/* ----- Table Styles ----- */
-.table-responsive {
-    overflow-x: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.1);
-    margin-top: 30px;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+/* 🧱 STUDENT CARDS */
+.student-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  position: relative;
+  z-index: 3;
 }
 
-.student-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 1rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    min-width: 1000px;
+.student-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
 }
 
-.student-table thead {
-    background: linear-gradient(135deg, #1e40af, #3730a3);
+/* 👤 PROFILE IMAGE */
+.student-pic-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
 }
 
-.student-table th {
-    padding: 18px 20px;
-    text-align: left;
-    color: #ffffff;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    border: none;
-    position: relative;
-}
-
-.student-table th::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 20px;
-    right: 20px;
-    height: 2px;
-    background: #60a5fa;
-}
-
-.student-table td {
-    padding: 16px 20px;
-    text-align: left;
-    border-bottom: 1px solid #e2e8f0;
-    vertical-align: middle;
-    color: #334155;
-}
-
-.student-table tbody tr {
-    transition: all 0.2s ease;
-}
-
-.student-table tbody tr:hover {
-    background-color: #f1f5f9;
-    transform: translateX(5px);
-    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
-}
-
-/* ----- Student Picture Cells ----- */
-.pic-cell {
-    width: 70px;
-}
-
-.student-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #e2e8f0;
-    transition: all 0.2s ease;
-}
-
-.student-pic:hover {
-    border-color: #3b82f6;
-    transform: scale(1.05);
+.student-card-pic {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  object-fit: cover;
 }
 
 .student-pic-placeholder {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-    color: #64748b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    border: 2px solid #e2e8f0;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #c7d2fe;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
-/* ----- CGPA Column ----- */
-.cgpa-col {
-    font-weight: bold;
-    color: #1e40af;
-    width: 100px;
-    font-size: 1.1rem;
+/* 🧾 INFO */
+.student-info {
+  text-align: center;
 }
 
-/* ----- Action Buttons in Table ----- */
-.action-cell {
-    white-space: nowrap;
-    width: 280px;
+.student-info h3 {
+  color: #1e293b;  /* darker name */
+  font-size: 1.3rem;
+  margin-bottom: 8px;
 }
 
-.btn-action {
-    padding: 8px 16px;
-    margin: 0 4px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+.student-info p {
+  color: #334155; /* darker info */
+  font-size: 0.95rem;
+  margin: 4px 0;
 }
 
-.btn-action:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+/* 🎯 ACTION BUTTONS */
+.student-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
 }
 
-.view-btn { 
-    background: #3b82f6; 
-    color: #ffffff; 
-}
-.view-btn:hover { 
-    background: #2563eb; 
+/* 🎖️ TOP STUDENT CARD */
+.top-student-card {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb); /* navy */
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.3);
 }
 
-.edit-btn { 
-    background: #60a5fa; 
-    color: #1e293b; 
-}
-.edit-btn:hover { 
-    background: #3b82f6; 
-    color: #ffffff;
+.top-student-card .student-info h3,
+.top-student-card .student-info p {
+  color: #ffffff;
 }
 
-.cgpa-btn { 
-    background: #6366f1; 
-    color: #ffffff; 
-}
-.cgpa-btn:hover { 
-    background: #4f46e5; 
-}
-
-.delete-btn { 
-    background: #ef4444; 
-    color: #ffffff; 
-}
-.delete-btn:hover { 
-    background: #dc2626; 
+.top-student-card::before {
+  content: "⭐ Top Performer";
+  position: absolute;
+  top: -12px;
+  left: 15px;
+  background: #1e40af;
+  color: white;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 6px;
 }
 
-/* ----- Top Student Highlight ----- */
-.top-student-row {
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    border-left: 4px solid #0462f9;
-    font-weight: bold;
-    position: relative;
-}
-
-.top-student-row::before {
-    position: absolute;
-    left: -25px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
-}
-
-.top-student-banner {
-    text-align: center;
-    background: linear-gradient(135deg, #3b82f6, #60a5fa);
-    color: #ffffff;
-    padding: 15px 30px;
-    border-radius: 6px;
-    margin-bottom: 25px;
-    font-weight: bold;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    border: 2px solid #60a5fa;
-}
-
-/* ----- Empty State ----- */
+/* ⚙️ EMPTY STATE */
 .no-students {
-    text-align: center;
-    font-size: 1.3rem;
-    color: #64748b;
-    padding: 60px 20px;
-    border: 2px dashed #cbd5e1;
-    border-radius: 8px;
-    margin-top: 30px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    background: #f8fafc;
+  text-align: center;
+  color: #475569;
+  font-size: 1.1rem;
+  margin-top: 50px;
 }
 
-.no-students::before {
-    content: "📊";
-    font-size: 3rem;
-    display: block;
-    margin-bottom: 20px;
-}
-
-/* ----- Loading States ----- */
-.btn.loading {
-    pointer-events: none;
-    opacity: 0.7;
-}
-
-.btn.loading::after {
-    content: "";
-    width: 16px;
-    height: 16px;
-    margin-left: 8px;
-    border: 2px solid transparent;
-    border-top: 2px solid currentColor;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-/* ===== MODAL STYLES ===== */
+/* 🪟 MODAL */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(5px);
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
 }
 
 .modal-content {
-    background: linear-gradient(135deg, #ffffff, #f8faff);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(30, 58, 138, 0.3);
-    border: 2px solid #3b82f6;
-    max-width: 500px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 25px 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+  animation: popIn 0.3s ease;
+  color: #1e293b;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0.3; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .modal-content h3 {
-    color: #1e40af;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.5rem;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 10px;
+  color: #1e293b;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
+/* FORM */
 .form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #334155;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin-bottom: 15px;
 }
 
 .form-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 1rem;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    background: #ffffff;
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #1e293b;
+  outline: none;
+  font-size: 1rem;
 }
 
 .form-input:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 12px var(--shadow);
 }
 
+/* MODAL BUTTONS */
 .modal-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 25px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.student-details {
-    background: #f8fafc;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-}
+.btn-action.view-btn { background-color: #2563eb; }
+.btn-action.edit-btn { background-color: #10b981; }
+.btn-action.cgpa-btn { background-color: #f59e0b; }
+.btn-action.delete-btn { background-color: #ef4444; }
 
-.detail-row {
-    padding: 10px 0;
-    border-bottom: 1px solid #e2e8f0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
+.btn-action.view-btn:hover { background-color: #1e40af; }
+.btn-action.edit-btn:hover { background-color: #047857; }
+.btn-action.cgpa-btn:hover { background-color: #b45309; }
+.btn-action.delete-btn:hover { background-color: #dc2626; }
 
-.detail-row:last-child {
-    border-bottom: none;
-}
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  .students-container {
+    padding: 40px 25px;
+  }
 
-.detail-row strong {
-    color: #1e40af;
-    min-width: 120px;
-    display: inline-block;
-}
+  .students-title {
+    font-size: 1.9rem;
+  }
 
-.error-message {
-    color: #ef4444;
-    font-size: 0.9rem;
-    margin-top: 5px;
-    text-align: center;
-    font-weight: 600;
-}
+  .search-input {
+    width: 100%;
+  }
 
-/* Responsive modal actions */
-@media (max-width: 480px) {
-    .modal-actions {
-        flex-direction: column;
-    }
-    
-    .modal-actions .btn-action {
-        width: 100%;
-    }
+  .student-card {
+    padding: 15px;
+  }
 }

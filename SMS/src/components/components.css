@@ -7,16 +7,6 @@ h3 {
 
 
 
-
-.footer {
-  width: 100%;
-  background: rgba(1, 1, 1, 0.7);
-  color: white;
-  text-align: center;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-
 .stCard {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);

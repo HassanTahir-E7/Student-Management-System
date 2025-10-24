@@ -6,96 +6,68 @@ const About = () => {
     return (
         <div className="container">
             <div className="ABG">
-
                 <main className="content">
 
                     {/* Mission Section */}
-                    <div className="about-section">
-                        <div className="about-content">
-                            {/* <h2>Our Mission</h2> */}
-                            <p style={{color:'black',marginTop:'50px',marginBottom:'10px'}}>
-                                At ClassMate, we believe in transforming educational administration through
-                                cutting-edge technology. Our mission is to provide institutions with a
-                                comprehensive, user-friendly platform that simplifies student management,
-                                enhances communication, and empowers educators to focus on what matters most - teaching.
-                            </p>
-                        </div>
-                    </div>
+                    <section className="about-section">
+                        <h2 style={{color:'navy',textAlign:'center'}}>About ClassMate</h2>
+                        <p style={{ color: 'black', marginTop: '20px' }}>
+                            ClassMate is built to simplify educational management through smart,
+                            efficient, and secure digital solutions. We help institutions manage
+                            student data, streamline communication, and focus more on learning.ClassMate is designed to make education 
+                            smarter, faster, and more connected — helping institutions embrace digital transformation with ease.
+                        </p>
+                    </section>
 
-                    {/* Features Grid */}
-                    <div className="about-section features-section">
-                        <h2>Why Choose ClassMate?</h2>
+                    {/* Features Section */}
+                    <section className="about-section features-section">
+                        <h2>Why Choose Us?</h2>
                         <div className="features-grid">
+
                             <div className="feature-card">
                                 <div className="feature-icon">🚀</div>
                                 <h3>Efficient Management</h3>
-                                <p>
-                                    Streamline student records, attendance, and academic tracking
-                                    with our intuitive interface designed for maximum productivity.
-                                </p>
+                                <p>Track student progress and records easily with our intuitive tools.</p>
                             </div>
 
                             <div className="feature-card">
                                 <div className="feature-icon">🔒</div>
-                                <h3>Secure & Reliable</h3>
-                                <p>
-                                    Your data's security is our top priority. We employ enterprise-grade
-                                    security measures to protect sensitive information.
-                                </p>
+                                <h3>Data Security</h3>
+                                <p>Your data stays protected with enterprise-level encryption.</p>
                             </div>
 
                             <div className="feature-card">
                                 <div className="feature-icon">📊</div>
-                                <h3>Real-time Analytics</h3>
-                                <p>
-                                    Make data-driven decisions with comprehensive analytics and
-                                    reporting tools that provide valuable insights.
-                                </p>
+                                <h3>Smart Insights</h3>
+                                <p>Use real-time analytics to make better academic decisions.</p>
                             </div>
 
-                            <div className="feature-card">
-                                <div className="feature-icon">👥</div>
-                                <h3>Collaborative Platform</h3>
-                                <p>
-                                    Foster better communication between students, teachers, and
-                                    administrators with our integrated collaboration tools.
-                                </p>
-                            </div>
                         </div>
-                    </div>
+                    </section>
 
-                    {/* Team Section */}
-                    <div className="about-section team-section">
+                    {/* Vision Section */}
+                    {/* <section className="about-section">
                         <h2>Our Vision</h2>
-                        <div className="vision-content">
-                            <p>
-                                We envision a future where educational institutions can operate seamlessly,
-                                where administrative tasks are automated, and where educators have more time
-                                to inspire the next generation of innovators, thinkers, and leaders.
-                            </p>
-                            <p>
-                                ClassMate is more than just a management system - it's a commitment to
-                                educational excellence and technological advancement in the academic sector.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Contact CTA */}
-                    <div className="about-cta">
-                        <h2>Ready to Transform Your Institution?</h2>
                         <p>
-                            Join hundreds of educational institutions already using ClassMate to
-                            streamline their operations and enhance student success.
+                            We aim to create a world where technology empowers education —
+                            making learning smoother, management smarter, and collaboration effortless.
                         </p>
+                    </section> */}
+
+                    {/* CTA Section */}
+                    <section className="about-cta">
+                        <h2>Ready to Elevate Your Institution?</h2>
+                        <p>Join schools and universities using ClassMate to transform education.</p>
                         <div className="cta-buttons">
-                            <a href="/contact" className="btn btn-primary">Get In Touch</a>
-                            <a href="/services" className="btn btn-secondary">View Services</a>
+                            <a href="/contact" className="btn btn-primary">Contact Us</a>
+                            <a href="/services" className="btn btn-secondary">Our Services</a>
                         </div>
-                    </div>
+                    </section>
+
                 </main>
-                <Footer />
 
             </div>
+                <Footer />
 
         </div>
     );

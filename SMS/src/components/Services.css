@@ -1,49 +1,182 @@
-/* Services.css */
+/* Services.css - Professional Card Layout Matching Background */
 
 .our_Services {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 40px 30px;
-    margin: 40px auto;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    max-width: 1200px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
+  background: transparent;
+  padding: 2rem 0;
+  margin: 4rem auto 0 auto;   /* Added top margin for spacing from previous section */
+  max-width: 1300px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Slightly wider boxes */
+  gap: 2.5rem;                 /* More space between cards */
+  position: relative;
+  z-index: 2;
 }
 
+/* Service Cards - Icon Left, Text Right (Bigger Box Only) */
 .Services {
-    display: flex;
-    align-items: center;
-    width: 350px;
-    color: #2c3e50;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 25px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 12px;
-    border-left: 5px solid #0988b3;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.2rem;                 /* Space between icon and text */
+  padding: 3rem 3.5rem;        /* Increased padding — bigger box */
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  font-size: 1.1rem;           /* same text size */
+  font-weight: 600;
+  text-align: left;
+  line-height: 1.5;
+  min-height: 110px;           /* gives more height without scaling content */
 }
 
+/* Card Entrance Animation */
+.Services {
+  animation: cardSlideUp 0.8s ease-out both;
+}
+
+@keyframes cardSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Color-coded card accents */
+.Services:nth-child(1) { border-left: 4px solid #3b82f6; }
+.Services:nth-child(2) { border-left: 4px solid #ef4444; }
+.Services:nth-child(3) { border-left: 4px solid #10b981; }
+.Services:nth-child(4) { border-left: 4px solid #f59e0b; }
+
+/* Hover Effects */
 .Services:hover {
-    background: rgba(9, 136, 179, 0.1);
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(9, 136, 179, 0.15);
-    border-left-color: #0678a3;
+  transform: translateY(-8px);
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.45),
+    0 10px 25px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Icon Styling (Unchanged) */
 .Services img {
-    height: 35px;
-    width: 35px;
-    margin-right: 20px;
-    object-fit: contain;
-    filter: brightness(0.9);
+  height: 55px;
+  width: 55px;
+  object-fit: contain;
+  filter: none;
+  opacity: 1;
+  transition: all 0.4s ease;
+  margin-left: 10px;
+}
+
+.Services:hover img {
+  transform: scale(1.1);
+}
+
+/* Text beside icon (Unchanged) */
+.Services span {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* Clickable Service Indicator */
+.clickable-service {
+  position: relative;
+}
+
+.clickable-service::after {
+  content: '→';
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  opacity: 0;
+  transition: all 0.3s ease;
+  color: #f8fafc;
+}
+
+.clickable-service:hover::after {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+/* Glow Effect on Hover */
+.Services::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 20px;
+}
+
+.Services:hover::before {
+  opacity: 1;
+}
+
+/* Staggered Animation */
+.Services:nth-child(1) { animation-delay: 0.1s; }
+.Services:nth-child(2) { animation-delay: 0.2s; }
+.Services:nth-child(3) { animation-delay: 0.3s; }
+.Services:nth-child(4) { animation-delay: 0.4s; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .our_Services {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .Services {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+    padding: 2.5rem 2rem;   /* slightly smaller padding for mobile */
+    min-height: auto;
+  }
+
+  .Services img {
+    height: 45px;
+    width: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .our_Services {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .Services {
+    padding: 2rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .Services img {
+    height: 40px;
+    width: 40px;
+  }
 }

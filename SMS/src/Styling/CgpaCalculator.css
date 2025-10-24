@@ -1,134 +1,205 @@
-/* Styling/CgpaCalculator.css */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
-.cgpa-container {
-    padding: 40px;
-    max-width: 700px;
-    margin: 50px auto;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-top: 5px solid rgb(0, 0, 81);
+* {
+  font-family: 'Ubuntu', sans-serif;
+  box-sizing: border-box;
 }
 
+/* Container */
+.cgpa-container {
+    margin-top: 60px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #dbeafe 40%, #c7d2fe 100%);
+    min-height: 100vh;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    color: #1e3a8a;
+}
+
+/* Add subtle grid overlay like StudentRegistration */
+.cgpa-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+}
+
+
+/* Title & Subtitle */
 .cgpa-title {
-    text-align: center;
-    color: rgb(0, 0, 81);
-    font-size: 2.2rem;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-bottom: 10px;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .cgpa-subtitle {
-    text-align: center;
-    color: #6c757d;
-    font-size: 1rem;
-    margin-bottom: 30px;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  text-align: center;
+  max-width: 700px;
+  color: #334155;
 }
 
+/* Course List */
 .course-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  padding: 25px 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(6px);
 }
 
 .course-header {
-    display: grid;
-    grid-template-columns: 2fr 1fr 50px;
-    gap: 10px;
-    font-weight: bold;
-    color: #555;
-    padding: 0 10px;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #1e3a8a;
+}
+
+.action-col {
+  width: 60px;
+  text-align: center;
 }
 
 .course-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 50px;
-    gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .course-row select,
 .course-row input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #2563eb;
+  font-size: 1rem;
+  outline: none;
 }
 
+.course-row select {
+  width: 55%;
+  background: white;
+  color: #1e3a8a;
+}
+
+.course-row input {
+  width: 25%;
+  background: white;
+  color: #1e3a8a;
+}
+
+/* Remove Button */
 .remove-btn {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
+  background: #ef4444;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  width: 40px;
+  height: 36px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .remove-btn:hover {
-    background-color: #c82333;
+  background: #dc2626;
+  transform: translateY(-2px);
 }
 
+/* Add Course Button */
 .add-course-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #17a2b8; /* Cyan for informational action */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 30px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .add-course-btn:hover {
-    background-color: #138496;
+  background: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
 }
 
+/* CGPA Footer */
 .cgpa-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #eee;
-    padding-top: 20px;
+  margin-top: 15px;
+  text-align: center;
 }
 
 .calculate-btn {
-    padding: 12px 25px;
-    background-color: rgb(0, 0, 81);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 12px 30px;
+  background: #10b981;
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .calculate-btn:hover {
-    background-color: #00005d;
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.2);
 }
 
+/* CGPA Result */
 .cgpa-result {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e3a8a;
 }
 
-.result-value {
-    font-size: 1.4rem;
-    margin-left: 10px;
-    padding: 5px 10px;
-    border-radius: 5px;
+.result-value.high-cgpa {
+  color: #2563eb;
+  margin-left: 6px;
 }
 
-.high-cgpa {
-    background-color: #d4edda;
-    color: #155724;
+.result-value.low-cgpa {
+  color: #ef4444;
+  margin-left: 6px;
 }
 
-.low-cgpa {
-    background-color: #f8d7da;
-    color: #721c24;
+/* Responsive */
+@media (max-width: 768px) {
+  .course-list {
+    padding: 20px 15px;
+  }
+
+  .cgpa-title {
+    font-size: 2rem;
+  }
+
+  .cgpa-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .course-row select,
+  .course-row input {
+    font-size: 0.95rem;
+  }
+
+  .add-course-btn,
+  .calculate-btn {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
 }

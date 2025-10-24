@@ -1,36 +1,45 @@
-// Services.jsx
 import React from "react";
-import { useNavigate } from "react-router-dom"; // ⬅️ NEW: Import useNavigate
+import { useNavigate } from "react-router-dom";
 import "./Services.css"; 
 import imgC from "../Images/Courses.png"
 import imgE from "../Images/Exam.png"
 import imgA from "../Images/Attendance.png"
 import imgCL from "../Images/Calcuclator.webp"
 
-
 const Services = () => {
-    const navigate = useNavigate(); // ⬅️ NEW: Initialize navigate
+    const navigate = useNavigate();
 
     return (
-        <div style={{marginTop:'20px'}} className="our_Services">
-            {/* 🎯 LINKED: Our Courses -> /subjects */}
-            <p 
+        <div className="our_Services" >
+            
+            <div 
                 className="Services clickable-service" 
                 onClick={() => navigate('/subjects')}
             >
-                <img src={imgC} alt="Courses icon" />  Our Courses
-            </p>
+                <img src={imgC} alt="Courses icon" />
+                <span>Our Courses</span>
+            </div>
 
-            <p className="Services"><img src={imgE} alt="Exams icon" />Upcoming Exams</p>
-            <p className="Services"><img src={imgA} alt="Attendance icon" />Attendance Management</p>
+           
+            <div className="Services">
+                <img src={imgE} alt="Exams icon" />
+                <span>Upcoming Exams</span>
+            </div>
 
-            {/* 🎯 LINKED: CGPA Calculator -> /cgpa */}
-            <p 
+          
+            <div className="Services">
+                <img src={imgA} alt="Attendance icon" />
+                <span>Attendance Management</span>
+            </div>
+
+            
+            <div 
                 className="Services clickable-service" 
                 onClick={() => navigate('/cgpa')}
             >
-                <img src={imgCL} alt="Calculator icon" />CGPA Calculator
-            </p> 
+                <img src={imgCL} alt="Calculator icon" />
+                <span>CGPA Calculator</span>
+            </div> 
         </div>
     );
 };

@@ -8,7 +8,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [resetEmail, setResetEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [showReset, setShowReset] = useState(false);
+  const [popup, setPopup] = useState({ show: false, message: "", type: "" });
   const navigate = useNavigate();
 
   // 🔹 Handle Login
@@ -16,21 +18,24 @@ const Login = () => {
     e.preventDefault();
 
     const storedAdmins = JSON.parse(localStorage.getItem("admins")) || [];
-
     const matchedAdmin = storedAdmins.find(
       (admin) => admin.email === email && admin.password === password
     );
 
     if (matchedAdmin) {
-      alert(`Welcome, ${matchedAdmin.name || "Admin"}!`);
+      showPopup(`Welcome, ${matchedAdmin.name || "Admin"}!`, "success");
       localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("currentAdmin", JSON.stringify(matchedAdmin));
-
-      // ✅ Ensure navigation works
-      setTimeout(() => navigate("/home"), 500);
+      setTimeout(() => navigate("/home"), 1500);
     } else {
-      alert("Invalid email or password. Please try again.");
+      showPopup("Invalid email or password. Please try again.", "error");
     }
+  };
+
+  // 🔹 Popup message
+  const showPopup = (message, type) => {
+    setPopup({ show: true, message, type });
+    setTimeout(() => setPopup({ show: false, message: "", type: "" }), 2000);
   };
 
   // 🔹 Handle Reset Password
@@ -39,39 +44,44 @@ const Login = () => {
     const admin = storedAdmins.find((a) => a.email === resetEmail);
 
     if (!admin) {
-      alert("No admin found with this email.");
+      showPopup("No admin found with this email.", "error");
       return;
     }
 
-    const newPassword = prompt("Enter your new password:");
-    if (newPassword && newPassword.trim() !== "") {
-      const updatedAdmins = storedAdmins.map((a) =>
-        a.email === resetEmail ? { ...a, password: newPassword } : a
-      );
-      localStorage.setItem("admins", JSON.stringify(updatedAdmins));
-      alert("Password reset successful! You can now log in.");
-      setShowReset(false);
-      setResetEmail("");
-    } else {
-      alert("Password not changed.");
+    if (!newPassword || newPassword.trim() === "") {
+      showPopup("Please enter a new password.", "error");
+      return;
     }
+
+    const updatedAdmins = storedAdmins.map((a) =>
+      a.email === resetEmail ? { ...a, password: newPassword } : a
+    );
+
+    localStorage.setItem("admins", JSON.stringify(updatedAdmins));
+    showPopup("Password reset successful!", "success");
+
+    // Reset fields and close modal
+    setShowReset(false);
+    setResetEmail("");
+    setNewPassword("");
   };
 
   return (
     <div
       className="login-container"
-      style={{
-        backgroundImage: `url(${bg})`,
-      }}
+      style={{ backgroundImage: `url(${bg})` }}
     >
+      {/* 🔹 Popup Message */}
+      {popup.show && (
+        <div className={`popup-message ${popup.type}`}>{popup.message}</div>
+      )}
+
       <form onSubmit={handleLogin} className="login-form">
-        {/* 🔹 Logo + Heading */}
         <div className="form-header">
           <img src={logo} alt="Logo" className="login-logo" />
           <h2>Admin Login</h2>
         </div>
 
-        {/* Email */}
         <div className="form-group">
           <label>Email:</label>
           <input
@@ -83,7 +93,6 @@ const Login = () => {
           />
         </div>
 
-        {/* Password */}
         <div className="form-group">
           <label>Password:</label>
           <input
@@ -95,27 +104,25 @@ const Login = () => {
           />
         </div>
 
-        {/* Forgot Password */}
         <p className="forgot-password" onClick={() => setShowReset(true)}>
           Forgot Password?
         </p>
 
-        {/* Login Button */}
         <button type="submit" className="login-btn">
           Login
         </button>
 
-        {/* Signup Link */}
         <p className="signup-link">
           Don’t have an account? <Link to="/signup">Sign up here</Link>
         </p>
       </form>
 
-      {/* Reset Password Modal */}
+      {/* 🔹 Reset Password Modal */}
       {showReset && (
         <div className="reset-overlay">
           <div className="reset-modal">
             <h3>Reset Password</h3>
+
             <input
               type="email"
               value={resetEmail}
@@ -123,11 +130,27 @@ const Login = () => {
               placeholder="Enter your registered email"
               required
             />
+
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter new password"
+              required
+            />
+
             <div className="reset-actions">
               <button onClick={handleResetPassword} className="reset-btn">
                 Reset
               </button>
-              <button onClick={() => setShowReset(false)} className="cancel-btn">
+              <button
+                onClick={() => {
+                  setShowReset(false);
+                  setResetEmail("");
+                  setNewPassword("");
+                }}
+                className="cancel-btn"
+              >
                 Cancel
               </button>
             </div>

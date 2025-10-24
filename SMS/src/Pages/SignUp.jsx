@@ -7,27 +7,32 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');       // 🔹 new state for message
+  const [isSuccess, setIsSuccess] = useState(false); // 🔹 to style message color
   const navigate = useNavigate();
 
   const handleSignup = (e) => {
     e.preventDefault();
+    setMessage(''); // clear any old messages
 
     const existingAdmins = JSON.parse(localStorage.getItem('admins')) || [];
 
-    // ✅ Check admin limit
-    if (existingAdmins.length >= 2) {
-      alert('Only 2 admins can be registered at a time. Please login instead.');
+    if (existingAdmins.length >= 1) {
+      setMessage('Only one admin can be registered at a time. Please login instead.');
+      setIsSuccess(false);
       return;
     }
 
     if (!name || !email || !password) {
-      alert('Please fill in all fields.');
+      setMessage('Please fill in all fields.');
+      setIsSuccess(false);
       return;
     }
 
     const alreadyExists = existingAdmins.some((admin) => admin.email === email);
     if (alreadyExists) {
-      alert('An admin with this email already exists. Please login instead.');
+      setMessage('An admin with this email already exists. Please login instead.');
+      setIsSuccess(false);
       return;
     }
 
@@ -35,11 +40,16 @@ const Signup = () => {
     existingAdmins.push(newAdmin);
     localStorage.setItem('admins', JSON.stringify(existingAdmins));
 
-    alert('Admin registered successfully!');
+    setMessage('✅ Admin registered successfully! Redirecting to login...');
+    setIsSuccess(true);
+
+    // reset form
     setName('');
     setEmail('');
     setPassword('');
-    navigate('/login');
+
+    // redirect after short delay
+    setTimeout(() => navigate('/login'), 2000);
   };
 
   return (
@@ -88,7 +98,13 @@ const Signup = () => {
 
         <button type="submit" className="signup-btn">Register</button>
 
-        {/* 🔹 New Section: Already registered message */}
+        {/* 🔹 Message Display Section */}
+        {message && (
+          <p className={`signup-message ${isSuccess ? 'success' : 'error'}`}>
+            {message}
+          </p>
+        )}
+
         <p className="already-registered">
           Already registered? <Link to="/login" className="login-link">Login here</Link>
         </p>

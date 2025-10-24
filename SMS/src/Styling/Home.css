@@ -1,157 +1,236 @@
-/* Home.css (Revised for Minimal Admin Panel Home) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-body,
-html {
+.home-page * {
   margin: 0;
   padding: 0;
-  height: 100%;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-.container {
+.home-page {
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  background: #222b45; /* lighter base than before */
+}
+
+/* Background Container */
+.home-page .HBG {
+  background: linear-gradient(
+    135deg,
+    #222b45 0%,   /* soft navy */
+    #2d3b55 30%,  /* balanced blue-gray */
+    #455a75 70%,  /* slightly brighter tone */
+    #5a6f8a 100%  /* lightest end */
+  );
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
-.content {
-  flex: 1;
+/* Animated Grid Pattern */
+.home-page .HBG::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+  z-index: 1;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+/* Floating Particles */
+.home-page .particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: floatParticle 20s infinite linear;
+  z-index: 1;
+}
+.home-page .particle:nth-child(1) { top: 20%; left: 10%; width: 4px; height: 4px; animation-delay: 0s; }
+.home-page .particle:nth-child(2) { top: 60%; left: 80%; width: 6px; height: 6px; animation-delay: -5s; }
+.home-page .particle:nth-child(3) { top: 80%; left: 20%; width: 3px; height: 3px; animation-delay: -10s; }
+.home-page .particle:nth-child(4) { top: 40%; left: 90%; width: 5px; height: 5px; animation-delay: -15s; }
+
+@keyframes floatParticle {
+  0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+/* Main Content */
+.home-page .content {
   text-align: center;
+  width: 100%;
+  max-width: 900px;
+  margin: 80px auto 0 auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  padding-top: 40px;
+  position: relative;
+  z-index: 3;
 }
 
-/* Background image */
-.HBG {
-  background-image: url('../Images/BG_Study.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
+/* Logo */
+.home-page .cmLogo {
+  width: clamp(140px, 22vw, 200px);
+  height: auto;
+  margin: 0 auto 25px auto;
+  display: block;
+  animation: logoEntrance 1.5s ease-out, gentleGlow 4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 25px rgba(59, 130, 246, 0.3))
+          drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
 }
 
-.HBG::before {
+@keyframes logoEntrance {
+  0% { opacity: 0; transform: translateY(-30px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes gentleGlow {
+  0%, 100% { filter: drop-shadow(0 8px 25px rgba(59, 130, 246, 0.3)); }
+  50% { filter: drop-shadow(0 8px 30px rgba(59, 130, 246, 0.5)); }
+}
+
+/* Heading */
+.home-page h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.2;
+  animation: slideInUp 1s ease-out 0.3s both;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.home-page h1::after {
   content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  z-index: -1;
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #10b981, #8b5cf6);
+  margin: 20px auto;
+  border-radius: 2px;
+  animation: expandLine 1.2s ease-out 0.8s both, gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes expandLine {
+  from { width: 0; opacity: 0; }
+  to { width: 80px; opacity: 1; }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 /* Text */
-h1 {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 3rem;
-  font-weight: bold;
-  text-decoration: underline;
-  margin-top: 150px;
-  /* 🎯 MODIFICATION: Ensure this heading is visible on the BG image */
-  color: black; 
-  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); */
+.home-page .content p {
+  color: #e2e8f0;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 35px auto;
+  line-height: 1.7;
+  font-weight: 400;
+  padding: 0 20px;
+  animation: slideInUp 1s ease-out 0.5s both;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
-p {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  color: azure;
-  font-size: 1.2rem;
-  margin-top: 20px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-u {
-  color: rgb(1, 1, 80);
-}
-
-
-/* 🎯 MODIFICATION: Adjustments for the empty 'cards' section */
-.cards {
-  /* Kept original layout properties */
-  margin-top: 50px;
+/* Buttons */
+.home-page .btn_Container {
   display: flex;
-  flex-direction: column; /* Changed to column to center text/button */
-  text-align: center;
   justify-content: center;
-  align-items: center; /* Center items horizontally */
-  margin-bottom: 100px;
-
-  /* Added padding and border for visual separation from high achievers title */
-  padding-top: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin: 40px 0;
+  animation: slideInUp 1s ease-out 0.7s both;
 }
 
-/* Style for the placeholder text inside the cards section */
-.cards p {
-    color: #666; /* Changed color for better visibility outside the HBG area */
-    margin-bottom: 20px;
-}
-
-/* Style for the "Go to Student List" button inside the cards section (reusing .btn) */
-.cards .btn {
-    /* Optional: Give it a slight color difference if desired, otherwise inherits original */
-    background-color: #28a745; /* Success color for list view */
-    color: white;
-}
-.cards .btn:hover {
-    background-color: #1e7e34;
-    color: white;
-}
-
-
-.cmLogo {
-  margin-left: 600px;
-  margin-top: 100px;
-  height: 200px;
-  width: 300px;
-  /* This component was removed from Home.jsx, but keeping the style just in case */
-}
-
-/* Basic Button */
-.btn_Container {display: flex;
-  justify-content: center; /* Centers the group of buttons */
-  gap: 30px; /* Adds space between the two buttons */
-  margin-top: 20px;
-}
-
-.btn {
-  /* This style is used for the new 'Register Student' button */
-  padding: 12px;
-  background-color: white;
-  color: black;
-  text-decoration: none;
-  border: none;
-  border-radius: 6px;
-  font-size: 50px;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.3s ease;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  width: 200px; /* 🎯 MODIFICATION: Increased width slightly for 'Register Student' text */
-}
-
-.btn:hover {
-  background-color: rgb(2, 4, 98);
+.home-page .btn {
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  min-width: 200px;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.home-page .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
 }
 
-.btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+.home-page .btn:hover::before { left: 100%; }
+.home-page .btn:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.5);
+}
+.home-page .btn:active { transform: translateY(-1px); }
+
+/* Services Section */
+.home-page .ourServices {
+  width: 100%;
+  margin-top: 100px;
+  padding: 80px 0;
+  background: transparent;
+  position: relative;
+  z-index: 3;
 }
 
-.ourServices {
-    /* Added margin for separation */
-    padding-top: 50px;
+.home-page .ourServices h1 {
+  color: #f8fafc;
+  font-size: clamp(2.2rem, 4vw, 2.8rem);
+  margin-bottom: 50px;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-page .cmLogo { width: clamp(120px, 20vw, 160px); margin-bottom: 20px; }
+  .home-page .btn_Container { flex-direction: column; gap: 20px; }
+  .home-page .ourServices { margin-top: 80px; padding: 60px 0; }
+}
+
+@media (max-width: 480px) {
+  .home-page .cmLogo { width: 100px; margin-bottom: 15px; }
+  .home-page .btn_Container { gap: 15px; }
+  .home-page .ourServices { margin-top: 60px; padding: 40px 0; }
+}
+
