@@ -13,7 +13,8 @@ import About from './Pages/About.jsx';
 import RegisterStudent from './Pages/RegisterStudent.jsx'; 
 import CgpaCalculator from './Pages/CgpaCalculator.jsx'; 
 import Courses from './Pages/Courses.jsx'; 
-// import Contact from './Pages/Contact.jsx';
+import Contact from './Pages/Contact.jsx';
+import Exams from './Pages/Exams.jsx';
 
 // --- Private Route Component (No change) ---
 const PrivateRoute = ({ element: Element, ...rest }) => {
@@ -52,8 +53,10 @@ const App = () => {
 
         <Route path="/register" element={<PrivateRoute element={RegisterStudent} />} />
         <Route path="/students" element={<PrivateRoute element={Students} />} /> 
-        <Route path="/subjects" element={<PrivateRoute element={Courses} />} />
+        <Route path="/contact" element={<PrivateRoute element={Contact} />} /> 
+        <Route path="/courses" element={<PrivateRoute element={Courses} />} />
         <Route path="/cgpa" element={<PrivateRoute element={CgpaCalculator} />} />
+        <Route path="/Exams" element={<PrivateRoute element={Exams} />} />
         
         <Route path="/about" element={<PrivateRoute element={About} />} />
 

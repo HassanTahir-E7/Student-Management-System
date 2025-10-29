@@ -1,0 +1,144 @@
+/* ==============================
+   🧾 Exams.css - Matches Courses.css Style
+   ============================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+* {
+  font-family: 'Ubuntu', sans-serif;
+  box-sizing: border-box;
+}
+
+/* 🌈 Background */
+.ExamsBG {
+  background: linear-gradient(135deg, #f0f4ff 0%, #dbeafe 40%, #c7d2fe 100%);
+  min-height: 100vh;
+  padding-top: 140px;
+  padding-bottom: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ExamsBG::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: moveGrid 20s linear infinite;
+  z-index: 1;
+}
+
+@keyframes moveGrid {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+/* 📋 Container */
+.exams-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-top: 5px solid #1e3a8a;
+  position: relative;
+  z-index: 3;
+}
+
+/* 🏷️ Titles */
+.exams-title {
+  font-size: 2.3rem;
+  color: #1e3a8a;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-shadow: 1px 1px 6px rgba(30, 64, 175, 0.1);
+}
+
+.exams-subtitle {
+  color: #334155;
+  font-size: 1.1rem;
+  margin-bottom: 35px;
+}
+
+/* 🧾 Exam Grid */
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+/* 🗓️ Exam Card */
+.exam-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 25px 20px;
+  border-radius: 16px;
+  text-align: left;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-left: 5px solid #2563eb;
+  transition: all 0.3s ease;
+  color: #1e293b;
+  backdrop-filter: blur(6px);
+}
+
+.exam-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+}
+
+/* 📅 Exam Info */
+.exam-subject {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e293b;
+  border-bottom: 1px dashed #cbd5e1;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.exam-date, .exam-time, .exam-room {
+  color: #2563eb;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.exam-date span,
+.exam-time span,
+.exam-room span {
+  color: #1e293b;
+  font-weight: 500;
+}
+
+/* ✅ Total Exams */
+.total-exams {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #16a34a;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .exams-container {
+    padding: 25px 18px;
+  }
+
+  .exams-title {
+    font-size: 2rem;
+  }
+
+  .exams-subtitle {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+
+  .exam-card {
+    padding: 20px 16px;
+  }
+}

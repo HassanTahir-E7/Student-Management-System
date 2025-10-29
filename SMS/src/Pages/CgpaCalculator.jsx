@@ -1,8 +1,6 @@
-// Pages/CgpaCalculator.jsx
 import React, { useState } from 'react';
 import '../Styling/CgpaCalculator.css'; 
 
-// Utility function to convert grade letter (A, B, C...) to points (4.0, 3.0, 2.0...)
 const gradeToPoints = (grade) => {
     const grades = {
         'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7,
@@ -24,7 +22,7 @@ const CgpaCalculator = () => {
         setCourses(prevCourses => prevCourses.map(course =>
             course.id === id ? { ...course, [field]: value } : course
         ));
-        setCalculatedCGPA(null); // Clear result on change
+        setCalculatedCGPA(null); 
     };
 
     const addCourse = () => {

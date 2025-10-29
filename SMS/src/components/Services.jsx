@@ -14,14 +14,15 @@ const Services = () => {
             
             <div 
                 className="Services clickable-service" 
-                onClick={() => navigate('/subjects')}
+                onClick={() => navigate('/courses')}
             >
                 <img src={imgC} alt="Courses icon" />
                 <span>Our Courses</span>
             </div>
 
            
-            <div className="Services">
+            <div className="Services clickable-service"
+            onClick={() => navigate('/exams')}>
                 <img src={imgE} alt="Exams icon" />
                 <span>Upcoming Exams</span>
             </div>

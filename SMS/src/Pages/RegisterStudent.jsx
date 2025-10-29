@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../Styling/RegisterStudent.css';
-import api from '../studentsData';
 
 const RegisterStudent = () => {
   const navigate = useNavigate();
@@ -85,7 +84,6 @@ const RegisterStudent = () => {
                   onChange={handleChange}
                   placeholder="Enter student's full name"
                   required
-                  disabled={isEditing}
                 />
               </div>
 
@@ -100,7 +98,6 @@ const RegisterStudent = () => {
                   onChange={handleChange}
                   placeholder="e.g., L1S23BSCS0001"
                   required
-                  disabled={isEditing}
                 />
               </div>
 
