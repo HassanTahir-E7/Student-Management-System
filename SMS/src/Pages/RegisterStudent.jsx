@@ -1,178 +1,191 @@
-// Pages/RegisterStudent.jsx
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import '../Styling/RegisterStudent.css';
+// RegisterStudent.jsx
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../Styling/RegisterStudent.css";
+
+const API_URL = "http://localhost:5000/students";
 
 const RegisterStudent = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const [formData, setFormData] = useState({
+    Name: "",
+    RegisterationNo: "",
+    Department: "",
+    Course: "",
+    CGPA: "",
+    picUrl: "",
+  });
 
-  const defaultImages = [
-    "https://api.dicebear.com/8.x/adventurer/svg?seed=Alex",
-    "https://api.dicebear.com/8.x/adventurer/svg?seed=Juno",
-    "https://api.dicebear.com/8.x/adventurer/svg?seed=Sky",
-    "https://api.dicebear.com/8.x/adventurer/svg?seed=Blaze",
-    "https://api.dicebear.com/8.x/adventurer/svg?seed=Luna"
+  const [imagePreview, setImagePreview] = useState(null);
+  const [error, setError] = useState("");
+
+  // Department and Course options
+  const departmentOptions = [
+    "Computer Science",
+    "Software Engineering",
+    "Information Technology",
+    "Artificial Intelligence",
+    "Data Science",
+    "Cyber Security",
   ];
 
-  const editingStudent = location.state?.student || null;
-
-  const [student, setStudent] = useState(
-    editingStudent || { name: '', rollNo: '', dept: '', course: '', picUrl: null, cgpa: 'N/A' }
-  );
-
-  const isEditing = !!editingStudent;
+  const courseOptions = [
+    "Programming Fundamentals",
+    "Object-Oriented Programming",
+    "Database Systems",
+    "Operating Systems",
+    "Computer Networks",
+    "Machine Learning",
+    "Web Development",
+  ];
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setStudent(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setStudent(prev => ({ ...prev, picUrl: reader.result }));
-      reader.readAsDataURL(file);
-    } else setStudent(prev => ({ ...prev, picUrl: null }));
+    const { name, value, files } = e.target;
+    if (name === "picUrl" && files && files[0]) {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setImagePreview(fileReader.result);
+        setFormData({ ...formData, picUrl: fileReader.result });
+      };
+      fileReader.readAsDataURL(files[0]);
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!student.name || !student.rollNo || !student.dept || !student.course) {
-      alert('Please fill out all required fields.');
+
+    if (
+      !formData.Name ||
+      !formData.RegisterationNo ||
+      !formData.Department ||
+      !formData.Course ||
+      !formData.CGPA
+    ) {
+      setError("⚠️ Please fill out all fields before submitting.");
       return;
-    }
-    if (!student.picUrl) {
-      student.picUrl = defaultImages[Math.floor(Math.random() * defaultImages.length)];
     }
 
     try {
-      if (isEditing) {
-        await api.put(`/Students/${student.id}`, student);
-        alert(`Student ${student.name}'s record updated successfully!`);
-      } else {
-        await api.post('/Students', student);
-        alert(`Student ${student.name} registered successfully!`);
-      }
-      setStudent({ name: '', rollNo: '', dept: '', course: '', picUrl: null, cgpa: 'N/A' });
-      navigate('/students');
-    } catch (error) {
-      console.error("Error saving student:", error);
-      alert("Operation Failed. Check console for details.");
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error("Failed to register student");
+
+      alert("✅ Student registered successfully!");
+      navigate("/students");
+    } catch (err) {
+      console.error("POST Error:", err.message);
+      setError("❌ Failed to register student. Try again.");
     }
   };
 
   return (
-    <div className="ABG">
-      <div className="wrapper">
-        <div className="reg-container">
-          <h2 className="reg-title">
-            {isEditing ? 'Edit Student Details' : 'Student Registration Form'}
-          </h2>
+    <div className="reg-container" style={{marginTop:'100px'}}>
+      <h1 className="reg-title">Register Student</h1>
+      <form className="reg-form" onSubmit={handleSubmit}>
+        <div className="form-grid">
+          {/* 🧍 Name */}
+          <div className="form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              name="Name"
+              placeholder="Enter your full name"
+              value={formData.Name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <form onSubmit={handleSubmit} className="reg-form">
-            <div className="form-grid">
-              {/* Name */}
-              <div className="form-group">
-                <label htmlFor="name">Full Name:</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={student.name}
-                  onChange={handleChange}
-                  placeholder="Enter student's full name"
-                  required
-                />
-              </div>
+          {/* 🆔 Registration No */}
+          <div className="form-group">
+            <label>Registeration No</label>
+            <input
+              type="text"
+              name="RegisterationNo"
+              placeholder="Enter registration number"
+              value={formData.RegisterationNo}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-              {/* Roll No */}
-              <div className="form-group">
-                <label htmlFor="rollNo">Roll No:</label>
-                <input
-                  type="text"
-                  id="rollNo"
-                  name="rollNo"
-                  value={student.rollNo}
-                  onChange={handleChange}
-                  placeholder="e.g., L1S23BSCS0001"
-                  required
-                />
-              </div>
+          {/* 🏫 Department */}
+          <div className="form-group">
+            <label>Department</label>
+            <select
+              name="Department"
+              value={formData.Department}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Department</option>
+              {departmentOptions.map((dept, index) => (
+                <option key={index} value={dept}>
+                  {dept}
+                </option>
+              ))}
+            </select>
+          </div>
 
-              {/* Department */}
-              <div className="form-group">
-                <label htmlFor="dept">Department:</label>
-                <select
-                  id="dept"
-                  name="dept"
-                  value={student.dept}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select Department</option>
-                  <option value="Computer Science">Computer Science</option>
-                  <option value="Electrical Engineering">Electrical Engineering</option>
-                  <option value="Business Administration">Business Administration</option>
-                  <option value="Software Engineering">Software Engineering</option>
-                </select>
-              </div>
+          {/* 📘 Course */}
+          <div className="form-group">
+            <label>Course</label>
+            <select
+              name="Course"
+              value={formData.Course}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Course</option>
+              {courseOptions.map((course, index) => (
+                <option key={index} value={course}>
+                  {course}
+                </option>
+              ))}
+            </select>
+          </div>
 
-              {/* Course */}
-              <div className="form-group">
-                <label htmlFor="course">Course:</label>
-                <select
-                  id="course"
-                  name="course"
-                  value={student.course}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select Course</option>
-                  <option value="Data Structures">Data Structures</option>
-                  <option value="Operating Systems">Operating Systems</option>
-                  <option value="Web Development">Web Development</option>
-                  <option value="Database Systems">Database Systems</option>
-                  <option value="Computer Networks">Computer Networks</option>
-                </select>
-              </div>
+          {/* 🎓 CGPA */}
+          <div className="form-group">
+            <label>CGPA</label>
+            <input
+              type="number"
+              step="0.01"
+              name="CGPA"
+              placeholder="Enter CGPA (e.g. 3.75)"
+              value={formData.CGPA}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-              {/* CGPA */}
-              <div className="form-group">
-                <label htmlFor="cgpa">CGPA:</label>
-                <input
-                  type="text"
-                  id="cgpa"
-                  name="cgpa"
-                  value={student.cgpa}
-                  onChange={handleChange}
-                  placeholder="e.g., 3.75"
-                />
-              </div>
-
-              {/* Picture Upload */}
-              <div className="form-group file-upload-group">
-                <label htmlFor="picUpload">Profile Picture:</label>
-                <input
-                  type="file"
-                  id="picUpload"
-                  name="picUpload"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-                {student.picUrl && (
-                  <img src={student.picUrl} alt="Preview" className="pic-preview" />
-                )}
-              </div>
-            </div>
-
-            <button type="submit" className="reg-submit-btn">
-              {isEditing ? 'Save Changes' : 'Register Student'}
-            </button>
-          </form>
+          {/* 🖼️ Picture */}
+          <div className="file-upload-group">
+            <label>Profile Picture</label>
+            <input
+              type="file"
+              name="picUrl"
+              accept="image/*"
+              onChange={handleChange}
+            />
+            {imagePreview && (
+              <img src={imagePreview} alt="preview" className="pic-preview" />
+            )}
+          </div>
         </div>
-      </div>
+
+        {error && <p className="error-msg">{error}</p>}
+
+        <button type="submit" className="reg-submit-btn">
+          Register Student
+        </button>
+      </form>
     </div>
   );
 };

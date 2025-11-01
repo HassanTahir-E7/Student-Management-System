@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "../Styling/Students.css";
 import Footer from "../components/Footer";
 
-// ⭐️ Define your API base URL ⭐️
 const API_BASE_URL = "http://localhost:5000";
 
 const Students = () => {
@@ -31,7 +30,7 @@ const Students = () => {
 
   const [cgpaValue, setCgpaValue] = useState("");
 
-  // ✅ Fetch all students
+  // ✅ Fetch students
   const fetchStudents = useCallback(async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/students`);
@@ -41,7 +40,7 @@ const Students = () => {
       highlightTopStudent(data);
     } catch (error) {
       console.error("Error fetching students:", error);
-      alert("Failed to fetch student data from the server. Check console for details.");
+      alert("Failed to fetch student data from the server.");
     }
   }, []);
 
@@ -49,22 +48,16 @@ const Students = () => {
     fetchStudents();
   }, [fetchStudents]);
 
-  // ✅ Highlight Top Student by CGPA
+  // ✅ Highlight top student
   const highlightTopStudent = (studentList) => {
-    if (!studentList || studentList.length === 0) {
-      setTopStudentId(null);
-      return;
-    }
+    if (!studentList || studentList.length === 0) return setTopStudentId(null);
 
     const valid = studentList.filter((s) => {
       const cgpa = parseFloat(s.CGPA);
       return !isNaN(cgpa) && cgpa >= 0 && cgpa <= 4;
     });
 
-    if (valid.length === 0) {
-      setTopStudentId(null);
-      return;
-    }
+    if (valid.length === 0) return setTopStudentId(null);
 
     const maxCGPA = Math.max(...valid.map((s) => parseFloat(s.CGPA)));
     const topStudent = valid.find((s) => parseFloat(s.CGPA) === maxCGPA);
@@ -79,31 +72,25 @@ const Students = () => {
 
   const confirmDelete = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/students/${selectedStudent.ID}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/students/${encodeURIComponent(selectedStudent.RegisterationNo)}`,
+        { method: "DELETE" }
+      );
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-      setStudents(students.filter((s) => s.ID !== selectedStudent.ID));
+      setStudents(students.filter((s) => s.RegisterationNo !== selectedStudent.RegisterationNo));
       setShowDeleteModal(false);
       alert(`${selectedStudent.Name} deleted successfully.`);
     } catch (e) {
       console.error("Delete Error:", e);
-      alert("Error deleting student.");
+      alert("Error deleting student. Check backend logs for details.");
     }
   };
 
   // ✅ Edit
   const handleEdit = (student) => {
     setSelectedStudent(student);
-    setEditFormData({
-      Name: student.Name,
-      RegisterationNo: student.RegisterationNo,
-      Department: student.Department,
-      Course: student.Course || "",
-      picUrl: student.picUrl || "",
-      CGPA: student.CGPA || "",
-    });
+    setEditFormData({ ...student });
     setShowEditModal(true);
   };
 
@@ -119,25 +106,33 @@ const Students = () => {
   };
 
   const saveEdit = async () => {
-    const { Name, RegisterationNo, Department, Course, picUrl, CGPA } = editFormData;
-    if (!Name || !RegisterationNo || !Department) return alert("Please fill all required fields.");
-
-    const updated = { ID: selectedStudent.ID, Name, RegisterationNo, Department, Course, picUrl, CGPA };
+    const updated = { ...editFormData };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/students/${selectedStudent.ID}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated),
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/students/${encodeURIComponent(updated.RegisterationNo)}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updated),
+        }
+      );
+
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-      setStudents(students.map((s) => (s.ID === updated.ID ? updated : s)));
+      const updatedStudent = await response.json();
+
+      setStudents((prev) =>
+        prev.map((s) =>
+          s.RegisterationNo === updatedStudent.RegisterationNo ? updatedStudent : s
+        )
+      );
+
       setShowEditModal(false);
       alert("Student updated successfully.");
     } catch (e) {
       console.error("Update Error:", e);
-      alert("Error updating student.");
+      alert("Error updating student. Check backend logs for details.");
     }
   };
 
@@ -162,14 +157,25 @@ const Students = () => {
     const updated = { ...selectedStudent, CGPA: newCGPA.toFixed(2) };
 
     try {
-      const response = await fetch(`${API_BASE_URL}/students/${selectedStudent.ID}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated),
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/students/${encodeURIComponent(selectedStudent.RegisterationNo)}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updated),
+        }
+      );
+
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-      setStudents(students.map((s) => (s.ID === updated.ID ? updated : s)));
+      const updatedStudent = await response.json();
+
+      setStudents((prev) =>
+        prev.map((s) =>
+          s.RegisterationNo === updatedStudent.RegisterationNo ? updatedStudent : s
+        )
+      );
+
       setShowCGPAModal(false);
       alert("CGPA updated successfully.");
     } catch (e) {
@@ -178,7 +184,6 @@ const Students = () => {
     }
   };
 
-  // ✅ Filter
   const filtered = students.filter(
     (s) =>
       s.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -206,62 +211,54 @@ const Students = () => {
         </div>
 
         {topStudentId && (
-          <div className="top-student-banner">🌟 Top Academic Performer Highlighted!</div>
+          <div className="top-student-banner">
+            🌟 Top Academic Performer Highlighted!
+          </div>
         )}
 
         {filtered.length === 0 ? (
-          <p className="no-students">No students found. Try registering one!</p>
+          <p className="no-students">No students found.</p>
         ) : (
           <div className="student-card-grid">
             {filtered.map((student) => (
               <div
-                key={student.ID}
+                key={student.RegisterationNo}
                 className={`student-card ${
-                  String(student.RegisterationNo) === topStudentId ? "top-student-card" : ""
+                  String(student.RegisterationNo) === topStudentId
+                    ? "top-student-card"
+                    : ""
                 }`}
               >
                 <div className="student-pic-container">
                   {student.picUrl ? (
-                    <img src={student.picUrl} alt={student.Name} className="student-card-pic" />
+                    <img
+                      src={student.picUrl}
+                      alt={student.Name}
+                      className="student-card-pic"
+                    />
                   ) : (
                     <div className="student-pic-placeholder">No Pic</div>
                   )}
                 </div>
                 <div className="student-info">
                   <h3>{student.Name}</h3>
-                  <p>
-                    <strong>Roll No:</strong> {student.RegisterationNo}
-                  </p>
-                  <p>
-                    <strong>Department:</strong> {student.Department}
-                  </p>
-                  <p>
-                    <strong>Course:</strong> {student.Course || "N/A"}
-                  </p>
-                  <p>
-                    <strong>CGPA:</strong> {student.CGPA}
-                  </p>
+                  <p><strong>Roll No:</strong> {student.RegisterationNo}</p>
+                  <p><strong>Department:</strong> {student.Department}</p>
+                  <p><strong>Course:</strong> {student.Course || "N/A"}</p>
+                  <p><strong>CGPA:</strong> {student.CGPA}</p>
                 </div>
                 <div className="student-actions">
-                  <button className="btn-action view-btn" onClick={() => handleView(student)}>
-                    View
-                  </button>
-                  <button className="btn-action edit-btn" onClick={() => handleEdit(student)}>
-                    Edit
-                  </button>
-                  <button className="btn-action cgpa-btn" onClick={() => handleUpdateCGPA(student)}>
-                    CGPA
-                  </button>
-                  <button className="btn-action delete-btn" onClick={() => handleDelete(student)}>
-                    Delete
-                  </button>
+                  <button className="btn-action view-btn" onClick={() => handleView(student)}>View</button>
+                  <button className="btn-action edit-btn" onClick={() => handleEdit(student)}>Edit</button>
+                  <button className="btn-action cgpa-btn" onClick={() => handleUpdateCGPA(student)}>CGPA</button>
+                  <button className="btn-action delete-btn" onClick={() => handleDelete(student)}>Delete</button>
                 </div>
               </div>
             ))}
           </div>
         )}
 
-        {/* ✅ Delete Modal */}
+        {/* ✅ DELETE MODAL */}
         {showDeleteModal && selectedStudent && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -279,26 +276,16 @@ const Students = () => {
           </div>
         )}
 
-        {/* ✅ View Modal */}
+        {/* ✅ VIEW MODAL */}
         {showViewModal && selectedStudent && (
           <div className="modal-overlay">
             <div className="modal-content">
               <h3>Student Details</h3>
-              <p>
-                <strong>Name:</strong> {selectedStudent.Name}
-              </p>
-              <p>
-                <strong>Roll No:</strong> {selectedStudent.RegisterationNo}
-              </p>
-              <p>
-                <strong>Department:</strong> {selectedStudent.Department}
-              </p>
-              <p>
-                <strong>Course:</strong> {selectedStudent.Course}
-              </p>
-              <p>
-                <strong>CGPA:</strong> {selectedStudent.CGPA}
-              </p>
+              <p><strong>Name:</strong> {selectedStudent.Name}</p>
+              <p><strong>Roll No:</strong> {selectedStudent.RegisterationNo}</p>
+              <p><strong>Department:</strong> {selectedStudent.Department}</p>
+              <p><strong>Course:</strong> {selectedStudent.Course}</p>
+              <p><strong>CGPA:</strong> {selectedStudent.CGPA}</p>
               {selectedStudent.picUrl && (
                 <img src={selectedStudent.picUrl} alt={selectedStudent.Name} className="pic-preview" />
               )}
@@ -311,7 +298,7 @@ const Students = () => {
           </div>
         )}
 
-        {/* ✅ Edit Modal */}
+        {/* ✅ EDIT MODAL */}
         {showEditModal && selectedStudent && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -331,9 +318,7 @@ const Students = () => {
                 <input
                   className="form-input"
                   value={editFormData.RegisterationNo}
-                  onChange={(e) =>
-                    setEditFormData({ ...editFormData, RegisterationNo: e.target.value })
-                  }
+                  disabled
                 />
               </div>
 
@@ -386,7 +371,7 @@ const Students = () => {
           </div>
         )}
 
-        {/* ✅ CGPA Update Modal */}
+        {/* ✅ CGPA MODAL */}
         {showCGPAModal && selectedStudent && (
           <div className="modal-overlay">
             <div className="modal-content">
